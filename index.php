@@ -5,21 +5,44 @@
  * Date: 01/11/2018
  * Time: 14:50
  */
-phpinfo();
-?>
+    require("./controller/ChapterController.php");
+    require("./controller/SimplePageController.php");
+    require("./controller/UserController.php");
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <link href="../public/css/bootstrap.min.css" rel="stylesheet">
-    <title>Jean Forteroche Blog</title>
-
-</head>
-<body>
-    <h1>HELLO EVERYBODY</h1>
-    <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-    <script src="../public/js/jquery.min.js"></script>
-    <script src="../public/js/bootstrap.min.js"></script>
-</body>
-</html>
+    $simplePageController = new SimplePageController();
+    $chapterController = new ChapterController();
+    $userController = new UserController();
+    try {
+        if (isset($_GET['action'])) {
+            switch ($_GET['action']) {
+                case 'goHome' :
+                    $simplePageController->sayWelcome();
+                    break;
+                case 'goChapter' :
+                    $chapterController->displayChapter($_GET['id']);
+                    break;
+                case 'goChapterList' :
+                    $chapterController->displayChapterList();
+                    break;
+                case 'goAuthor' :
+                    $simplePageController->displayAuthorPage();
+                    break;
+                case 'goLogin' :
+                    $userController->displayLoginPage();
+                    break;
+                case 'goContact' :
+                    $simplePageController->displayContactPage();
+                    break;
+                case 'goAdmin' :
+                    break;
+                default:
+                    $simplePageController->sayWelcome();
+            }
+        }
+        else {
+            $simplePageController->sayWelcome();
+        }
+    }
+    catch(Exception $e) {
+        echo 'Erreur : ' . $e->getMessage();
+    }
