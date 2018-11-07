@@ -5,14 +5,16 @@
  * Date: 01/11/2018
  * Time: 14:50
  */
-    require("./controller/ChapterController.php");
-    require("./controller/SimplePageController.php");
-    require("./controller/UserController.php");
 
-    $simplePageController = new SimplePageController();
-    $chapterController = new ChapterController();
-    $userController = new UserController();
     try {
+        require("./controller/ChapterController.php");
+        require("./controller/SimplePageController.php");
+        require("./controller/UserController.php");
+
+        $simplePageController = new SimplePageController();
+        $chapterController = new ChapterController();
+        $userController = new UserController();
+        
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
                 case 'goHome' :
