@@ -12,8 +12,13 @@ class Manager
 
     public function __construct()
     {
-        $this->_db = new PDO('mysql:host=localhost;dbname=p4;charset=utf8', 'root', '');
-    }
+	try {
+	      $this->_db = new PDO('mysql:host=localhost;dbname=p4;charset=utf8', 'root', '');
+	}
+	catch (Exception $e) {
+		$this->_db = new PDO('mysql:host=ec2-34-207-144-115.compute-1.amazonaws.com;dbname=p4;charset=utf8', 'root', 'Jefsac73MDB');
+   		}
+	}
     protected function getDB()
     {
         return $this->_db;
