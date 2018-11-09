@@ -10,21 +10,46 @@ require_once('model/Manager.php');
 
 class CommentManager extends Manager
 {
-    public function getComments($postId)
+    public function getComments($chapterId)
     {
-        $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT id, author, comment, DATE_FORMAT(creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr FROM comments WHERE idChapter = ? ORDER BY comment_date DESC');
-        $comments->execute(array($postId));
-
+        $comments = $this->_db->prepare('SELECT comments.id, comments.comment, DATE_FORMAT(comments.creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, users.login
+            FROM comments INNER JOIN users ON comments.idUsers = users.id
+            WHERE comments.idChapter=? ORDER BY comment_date_fr DESC');
+        $comments->execute(array($chapterId));
         return $comments;
     }
-
-    public function postComment($postId, $author, $comment)
+    public function addComment($chapterId, $idLogin, $comment)
     {
-        $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comments(post_id, author, comment, creationDate, manualApprove, signaled, banished) VALUES(?, ?, ?, NOW(), 0, 0, 0)');
-        $affectedLines = $comments->execute(array($postId, $author, $comment));
-
+        $comments = $this->_db->prepare('INSERT INTO comments(idChapter, idUsers, comment, creationDate, manualApprove, signaled, banished) VALUES(?, ?, ?, NOW(), 0, 0, 0)');
+        $affectedLines = $comments->execute(array($chapterId, $idLogin, $comment));
         return $affectedLines;
+    }
+    public function signalComment($id)
+    {
+        $comments = $this->_db->prepare('UPDATE comments SET signaled=1 WHERE id=?');
+        $signaledComment = $comments->execute(array($id));
+        echo "retour signalComments : ".$signaledComment;
+        return $signaledComment;
+    }
+    public function approveComment($postId, $author, $comment)
+    {
+        $comments = $this->_db->prepare('UPDATE comments SET manualApprove=1 WHERE id=?');
+        $approvedComment = $comments->execute(array($id));
+        echo "retour approuvedComments : ".$approvedComment;
+        return $approvedComment;
+    }
+    public function deleteComment($postId, $author, $comment)
+    {
+        $comments = $this->_db->prepare('UPDATE comments SET banished=1 WHERE id=?');
+        $banishedComment = $comments->execute(array($id));
+        echo "retour banishedComments : ".$banishedComment;
+        return $banishedComment;
+    }
+    public function hardDeleteComment($postId, $author, $comment)
+    {
+        $comments = $this->_db->prepare('DELETE FROM comments WHERE id=?');
+        $deletedComment = $comments->execute(array($id));
+        echo "retour deleteddComments : ".$deletedComment;
+        return $deletedComment;
     }
 }

@@ -13,7 +13,7 @@ ob_start();
 $intro = ob_get_clean();
 ob_start();
 ?>
-    <form action="" method="post">
+    <form action="authentificationComment" method="post">
           <div>
                 <label for="nom">Nom :</label>
                 <input type="text" id="nom" name="user_name">

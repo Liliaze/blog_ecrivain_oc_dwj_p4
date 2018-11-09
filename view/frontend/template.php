@@ -18,6 +18,7 @@
     <div id="part2"class="col-lg-12">
         <?= $part2 ?>
     </div>
+    <script src="public/js/formAddComment.js"></script>
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="public/js/jquery.min.js"></script>
     <script src="public/js/bootstrap.min.js"></script>

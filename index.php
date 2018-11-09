@@ -7,42 +7,62 @@
  */
 
     try {
-        require("./controller/ChapterController.php");
-        require("./controller/SimplePageController.php");
+        require("./controller/PageController.php");
         require("./controller/UserController.php");
 
-        $simplePageController = new SimplePageController();
-        $chapterController = new ChapterController();
+        $pageController = new PageController();
         $userController = new UserController();
         
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
                 case 'goHome' :
-                    $simplePageController->sayWelcome();
+                    $pageController->sayWelcome();
                     break;
                 case 'goChapter' :
-                    $chapterController->displayChapter($_GET['id']);
+                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0)
+                        $pageController->displayChapter($_GET['idChapter']);
                     break;
                 case 'goChapterList' :
-                    $chapterController->displayChapterList();
+                    $pageController->displayChapterList();
                     break;
                 case 'goAuthor' :
-                    $simplePageController->displayAuthorPage();
+                    $pageController->displayAuthorPage();
                     break;
                 case 'goLogin' :
-                    $userController->displayLoginPage();
+                    $pageController->displayLoginPage();
+                    break;
+                case 'goAdminLogin' :
+                    $pageController->displayAdminLoginPage();
                     break;
                 case 'goContact' :
-                    $simplePageController->displayContactPage();
+                    $pageController->displayContactPage();
                     break;
                 case 'goAdmin' :
+                    if (!empty(htmlspecialchars($_POST['mdp'])) && !empty(htmlspecialchars($_POST['login']))) {
+                        $userController->displayAdminPage(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                    }
+                    break;
+                case 'addComment' :
+                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0) {
+                        if (!empty(htmlspecialchars($_POST['comment'])) && !empty(htmlspecialchars($_POST['mdp'])) && !empty(htmlspecialchars($_POST['login']))) {
+                            $user = $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                            if ($user >= 1)
+                                $pageController->addComment($_GET['idChapter'], $user, $_POST['comment']);
+                            else
+                                echo "ERREUR : bad users";
+                        }
+                        else
+                            echo "ERREUR : CHAMPS VIDE A COMPLETER";
+                    }
+                    else
+                        echo "ERREUR : numéro de chapitre inconnu";
                     break;
                 default:
-                    $simplePageController->sayWelcome();
+                    $pageController->sayWelcome();
             }
         }
         else {
-            $simplePageController->sayWelcome();
+            $pageController->sayWelcome();
         }
     }
     catch(Exception $e) {

@@ -22,7 +22,7 @@ while ($data= $this->_chapterList->fetch())
 
         <p>
             <?= substr(nl2br(htmlspecialchars($data['content'])), 0, 255);  ?>
-            <a class="readMore" href="index.php?action=goChapter&amp;id=<?=htmlspecialchars($data['id'])?>">Lire plus..."</a>
+            <a class="readMore" href="index.php?action=goChapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>">Lire plus..."</a>
             <br />
         </p>
         <br />

@@ -7,14 +7,14 @@
  */
 ob_start();
 ?>
-    <h1 class="col-lg-8">Poster des commentaires ?</h1>
-    <h2 class="col-lg-6">Identifiez-vous</h2>
+    <h1 class="col-lg-8">Vous êtes administrateur ?</h1>
+    <h2 class="col-lg-6">Connectez-vous pour modifier le contenu du site</h2>
 <?php
 $intro = ob_get_clean();
 ob_start();
 ?>
     <div id="divForm">
-        <form id="loginForm">
+        <form action="index.php?action=goAdmin" id="loginForm" method="post">
             <fieldset id="fieldsetLoginForm">
                 <legend>Identification...</legend>
                 <div>
@@ -35,7 +35,7 @@ ob_start();
 $part1 = ob_get_clean();
 ob_start();?>
 <div id="welcomeUser">
-    <p>Bonjour nous ne vous reconnaissons pas, merci de vous identifier</p>
+    <p>Bonjour merci de vous identifier pour administrer le site</p>
 </div>
 <?php $part2 = ob_get_clean();
 require('template.php'); ?>
