@@ -24,7 +24,7 @@ ob_start();
         </h3>
         <p>
             <?= substr(nl2br(htmlspecialchars($data['content'])), 0, 255);  ?>
-            <a class="readMore" href="index.php?action=goChapter&amp;id=<?=htmlspecialchars($data['id'])?>">
+            <a class="readMore" href="index.php?action=goChapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>">
             <br/>Lire plus..."</a>
             <br/>
         </p>
