@@ -14,16 +14,15 @@ class UserManager extends Manager
         $users = $this->_db->prepare('SELECT users.id, users.login, users.mdp FROM users WHERE login=?');
         $users->execute(array($login));
         if ($users->rowCount() != 1) {
-            echo "Erreur : identifiant inconnu, merci de vérifier vos données. Première connexion ? enregistrez-vous : ";
+            $_SESSION['error'] = "Erreur : identifiant inconnu, merci de vérifier vos données. Première connexion ? enregistrez-vous : ";
             return false;
         }
         while ($data = $users->fetch()) {
             if ($data['mdp'] !== $mdp) {
-                echo "Erreur : mauvais mdp, réessayez";
+                $_SESSION['error'] = "Erreur : mauvais mot de passe";
             return false;
             }
             else {
-                echo "Connexion réussie";
                 return $data['id'];
             }
         }
@@ -34,7 +33,7 @@ class UserManager extends Manager
         $users = $this->_db->prepare('SELECT users.admin FROM users WHERE login=?');
         $users->execute(array($login));
         if ($users->rowCount() != 1) {
-            echo "Erreur : identifiant inconnu";
+            $_SESSION['error'] = "Erreur : identifiant inconnu";
             return false;
         }
         while ($data = $users->fetch()) {

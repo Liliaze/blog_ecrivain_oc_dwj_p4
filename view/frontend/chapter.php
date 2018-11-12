@@ -7,62 +7,52 @@
  */
 
 ob_start(); ?>
-    <h1 class="col-lg-8" xmlns="http://www.w3.org/1999/html">L'AMBIVALENCE !!!</h1>
-<?php $intro = ob_get_clean();
-ob_start();
-while ($data= $this->_oneChapter->fetch())  { ?>
+    <h1>AMBIVALENCE</h1>
     <div class="chapter col-lg-12">
-        <h2 class="col-lg-12">Chapitre : <?= htmlspecialchars($data['id']) ?></h2>
-        <h3 class="col-lg-12">
-            <em><?= htmlspecialchars($data['title']) ?></em>
-            le <?= $data['creation_date_fr'] ?>
-        </h3>
-
-        <p class="col-lg-10">
-            <?= nl2br(htmlspecialchars($data['content'])) ?> <br />
-        </p>
-    </div>
-    <div class="col-lg-12">
-        <form action="index.php?action=addComment&amp;idChapter=<?= $data['id'] ?>" method="post">
-            <div>
-                <label for="author">Login</label><br />
-                <input type="text" id="loginComment" name="login" />
-            </div>
-            <div>
-                <label for="mdp">Mot de passe</label><br />
-                <input type="text" id="mdpComment" name="mdp" />
-            </div>
-            <div>
-                <label for="comment">Commentaire</label><br />
-                <textarea id="commentTextarea" name="comment"></textarea>
-            </div>
-            <div>
-                <input type="submit" />
-            </div>
-        </form>
-    </div>
-    <?php
-}
-$this->_oneChapter->closeCursor();
-?>
-<?php $part1 = ob_get_clean();
-ob_start();?>
+    <?php while ($data= $this->_oneChapter->fetch())  { ?>
+            <h2>Chapitre : <?= htmlspecialchars($data['id']) ?>
+                </br><span class="extractTitle"><?= htmlspecialchars($data['title']) ?></span>
+                </br><span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
+            </h2>
+            <p>
+                <?= nl2br(htmlspecialchars($data['content'])) ?> <br />
+            </p>
+        </div>
+        <div>
+            <form action="index.php?action=addComment&amp;idChapter=<?= $data['id'] ?>" method="post">
+                <div>
+                    <label for="comment">Commentaire</label><br />
+                    <textarea id="commentTextarea" name="comment"></textarea>
+                </div>
+                <div>
+                    <input type="submit" />
+                </div>
+            </form>
+            <?= $textError ?>
+        </div>
+    <?php }
+    $this->_oneChapter->closeCursor();?>
     <div class="comments col-lg-12">
         <h2 class="col-lg-12">Commentaires :</h2>
-
-<?php if ($this->_commentsChapterList->rowCount() == 0) {?> Pas de commentaires <?php }
-    while ($data= $this->_commentsChapterList->fetch()) {?>
-        <h4 class="col-lg-12">
-            Posté par <em><?= htmlspecialchars($data['login']) ?></em>
-            , le <?= $data['comment_date_fr'] ?>
-        </h4>
-
-        <p class="col-lg-12">
-            <?= nl2br(htmlspecialchars($data['comment'])) ?> <br />
-        </p>
+        <?php if ($this->_commentsChapterList->rowCount() == 0) {?> Pas de commentaires <?php }
+            while ($data= $this->_commentsChapterList->fetch()) {?>
+                <h4>
+                    Posté par <em><?= htmlspecialchars($data['login']) ?></em>
+                    , le <?= $data['comment_date_fr'] ?>
+                </h4>
+                <p>
+                    <?= nl2br(htmlspecialchars($data['comment'])) ?> <br />
+                </p>
+                <ul class="menuComment">
+                    <li><button id="like"> <?= $data['nbLike'] ?></li>
+                    <li><a href="index.php?action=likeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><button id="likeButton"><i class="far fa-thumbs-up"></i></button></a></li>
+                    <li><button id="dislike"> <?= $data['nbDislike'] ?></li>
+                    <li><a href="index.php?action=unlikeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id']?> "><button id="dislikeButton"><i class="far fa-thumbs-down"></i></button></a></li>
+                    <li><a href="index.php?action=signaledComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><button id="signaled"><i class="fas fa-door-open"></i><?= $data['signaled']?> signaler</button></a></li>
+                </ul>
+        <?php }?>
     </div>
 <?php
-}
 $this->_commentsChapterList->closeCursor();
-$part2 = ob_get_clean(); ?>
+$content = ob_get_clean(); ?>
 <?php require('./view/frontend/template.php'); ?>

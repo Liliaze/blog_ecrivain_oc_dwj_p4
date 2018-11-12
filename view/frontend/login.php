@@ -7,14 +7,10 @@
  */
 ob_start();
 ?>
-    <h1 class="col-lg-8">Poster des commentaires ?</h1>
-    <h2 class="col-lg-6">Identifiez-vous</h2>
-<?php
-$intro = ob_get_clean();
-ob_start();
-?>
+    <h1>Poster des commentaires ?</h1>
+    <h2>Identifiez-vous</h2>
     <div id="divForm">
-        <form id="loginForm">
+        <form action="index.php?action=validUser" id="loginForm" method="post">
             <fieldset id="fieldsetLoginForm">
                 <legend>Identification...</legend>
                 <div>
@@ -31,11 +27,13 @@ ob_start();
             </fieldset>
         </form>
     </div>
-<?php
-$part1 = ob_get_clean();
-ob_start();?>
 <div id="welcomeUser">
+    <?php if (isset($_SESSION['login']) && $_SESSION['login'] != '') {?>
+    <p>Bonjour, <?=$_SESSION['login'] ?> vous pouvez dès à présent poster des commentaires</p>
+        <a href="index.php?action=unlog"><button>Déconnexion</button></a>
+    <?php } else { ?>
     <p>Bonjour nous ne vous reconnaissons pas, merci de vous identifier</p>
+    <?php } ?>
 </div>
-<?php $part2 = ob_get_clean();
+<?php $content = ob_get_clean();
 require('template.php'); ?>

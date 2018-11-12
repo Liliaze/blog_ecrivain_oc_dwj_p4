@@ -17,19 +17,25 @@ class UserController
     public function __construct() {
         $this->_userManager = new UserManager();
     }
-    public function displayAdminPage($login, $mdp) {
 
-        $this->_user = $this->_userManager->checkUser($login, $mdp);
-        if ($this->_user == false)
-            return;
-        if ($this->_user >= 1)
-            $this->_admin = $this->_userManager->getStatus($login);
-        if ($this->_admin == 1)
-            require('view/admin/admin.php');
+    public function unlog() {
+        $_SESSION['id'] = '';
+        $_SESSION['admin'] = '';
+        $_SESSION['login'] = '';
     }
     public function checkClassicUser($login, $mdp) {
-        $this->_user = $this->_userManager->checkUser($login, $mdp);
-        echo $this->_user;
-        return $this->_user;
+        if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
+            $this->_user = $this->_userManager->checkUser($login, $mdp);
+            if ($this->_user != null) {
+                $_SESSION['id'] = $this->_user;
+                $_SESSION['login'] = $login;
+                $_SESSION['admin'] = ($this->_user == 1) ? 1 : 0;
+                $_SESSION['success'] = 'BIENVENUE ' . $login . ' : vous êtes connecté';
+            }
+        }
+        else {
+            $this->unlog();
+        }
     }
+    //ajout user / delete user.... / page profil
 }

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,18 +6,14 @@
     <link href="public/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="public/css/style-lg.css" rel="stylesheet">
-    <title>Jean Forteroche Blog</title>
+    <title>Jean Forteroche</title>
 </head>
 <body class="col-lg-12">
+    <?php require('view/frontend/alert.php'); ?>
     <?php require('view/frontend/header.php'); ?>
-    <div id="intro"class="col-lg-12">
-        <?= $intro ?>
-    </div>
-    <div id="part1"class="col-lg-12">
-        <?= $part1 ?>
-    </div>
-    <div id="part2"class="col-lg-12">
-        <?= $part2 ?>
+    <div id="content"class="col-lg-12">
+        <?= $alert?>
+        <?= $content?>
     </div>
     <script src="public/js/formAddComment.js"></script>
     <script src="//code.jquery.com/jquery-1.12.0.min.js"></script>

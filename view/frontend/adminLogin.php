@@ -7,12 +7,8 @@
  */
 ob_start();
 ?>
-    <h1 class="col-lg-8">Vous êtes administrateur ?</h1>
-    <h2 class="col-lg-6">Connectez-vous pour modifier le contenu du site</h2>
-<?php
-$intro = ob_get_clean();
-ob_start();
-?>
+    <h1>Vous êtes administrateur ?</h1>
+    <h2>Connectez-vous pour modifier le contenu du site</h2>
     <div id="divForm">
         <form action="index.php?action=goAdmin" id="loginForm" method="post">
             <fieldset id="fieldsetLoginForm">
@@ -31,11 +27,8 @@ ob_start();
             </fieldset>
         </form>
     </div>
-<?php
-$part1 = ob_get_clean();
-ob_start();?>
 <div id="welcomeUser">
     <p>Bonjour merci de vous identifier pour administrer le site</p>
 </div>
-<?php $part2 = ob_get_clean();
+<?php $content= ob_get_clean();
 require('template.php'); ?>

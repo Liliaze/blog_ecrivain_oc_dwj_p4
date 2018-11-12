@@ -8,6 +8,9 @@
 require_once('model/ChapterManager.php');
 require_once('model/CommentManager.php');
 
+//add papaController
+//ne mettre que chapterController
+
 class PageController {
     private $_chapterManager;
     private $_commentManager;
@@ -32,6 +35,10 @@ class PageController {
     }
     public function displayChapter($idChapter)
     {
+        if($_SESSION['id'] == 0)
+            $textError = '<a href="index.php?action=goLogin"><button>Connexion au site</button></a>';
+        else
+            $textError = '';
         $this->setOneChapter($idChapter);
         $this->setCommentsChapterList($idChapter);
         require('view/frontend/chapter.php');
@@ -40,11 +47,53 @@ class PageController {
     {
         require('view/frontend/chapterList.php');
     }
-    public function addComment($idChapter, $idUser, $comment)
+    public function addComment($idChapter, $comment)
     {
-        $this->_commentManager->addComment($idChapter, $idUser, $comment);
-        echo "Commentaire ajouté";
-        require('view/frontend/chapterList.php');
+        if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
+            if ($idChapter > 0) {
+                if (!empty(htmlspecialchars($_POST['comment']))) {
+                    $this->_commentManager->addComment($idChapter, $_SESSION['id'], $comment);
+                    $_SESSION['success'] = 'Commentaire ajouté avec succès';
+                }
+                else
+                    $_SESSION['warning'] = "Veuillez complèter le champ de commentaire avant d'envoyer";
+            }
+            else {
+                $_SESSION['error'] = "ERREUR : Le numéro de chapitre transmis n'est pas correct. Choisissez un chapitre";
+                require('view/frontend/chapterList.php');
+            }
+        }
+        else {
+            $_SESSION['warning'] = 'Merci de vous identifier pour pouvoir poster un commentaire';
+        }
+        $this->displayChapter($idChapter);
+    }
+    public function likeComment($idChapter, $idComment) {
+        if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
+            $this->_commentManager->likeComment($idComment);
+        }
+        else {
+             $_SESSION['warning'] = 'Merci de vous identifier pour pouvoir aimer un commentaire';
+        }
+        $this->displayChapter($idChapter);
+    }
+    public function dislikeComment($idChapter, $idComment) {
+        if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
+            $this->_commentManager->dislikeComment($idComment);
+        }
+        else {
+            $_SESSION['warning'] = 'Merci de vous identifier pour indiquer que vous n\'aimez pas un commentaire';
+        }
+        $this->displayChapter($idChapter);
+    }
+    public function signaledComment($idChapter, $idComment) {
+        if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
+            $this->_commentManager->signalComment($idComment);
+        }
+        else {
+            $_SESSION['warning'] = 'Merci de vous identifier pour SIGNALER un commentaire';
+        }
+        $this->displayChapter($idChapter);
     }
     public function sayWelcome()
     {
@@ -58,8 +107,11 @@ class PageController {
     public function displayContactPage() {
         require('view/frontend/contact.php');
     }
-    public function displayAdminLoginPage() {
-        require('view/frontend/adminLogin.php');
+    public function displayAdminPage() {
+        if ($_SESSION['admin'] == 1)
+            require('view/admin/admin.php');
+        else
+            require('view/frontend/adminLogin.php');
     }
     public function displayLoginPage() {
         require('view/frontend/login.php');

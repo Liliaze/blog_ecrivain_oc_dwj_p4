@@ -7,6 +7,8 @@
  */
 
     try {
+        session_start();
+
         require("./controller/PageController.php");
         require("./controller/UserController.php");
 
@@ -31,31 +33,35 @@
                 case 'goLogin' :
                     $pageController->displayLoginPage();
                     break;
-                case 'goAdminLogin' :
-                    $pageController->displayAdminLoginPage();
+                case 'validUser' :
+                    $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                    $pageController->displayLoginPage();
+                    break;
+                case 'unlog' :
+                    $userController->unlog();
+                    $pageController->displayLoginPage();
+                    break;
+                case 'likeComment' :
+                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0)
+                        $pageController->likeComment($_GET['idChapter'], $_GET['idComment']);
+                    break;
+                case 'unlikeComment' :
+                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0)
+                        $pageController->dislikeComment($_GET['idChapter'], $_GET['idComment']);
+                    break;
+                case 'signaledComment' :
+                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0)
+                        $pageController->signaledComment($_GET['idChapter'], $_GET['idComment']);
+                    break;
+                case 'goAdmin' :
+                    $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                    $pageController->displayAdminPage();
                     break;
                 case 'goContact' :
                     $pageController->displayContactPage();
                     break;
-                case 'goAdmin' :
-                    if (!empty(htmlspecialchars($_POST['mdp'])) && !empty(htmlspecialchars($_POST['login']))) {
-                        $userController->displayAdminPage(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
-                    }
-                    break;
                 case 'addComment' :
-                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0) {
-                        if (!empty(htmlspecialchars($_POST['comment'])) && !empty(htmlspecialchars($_POST['mdp'])) && !empty(htmlspecialchars($_POST['login']))) {
-                            $user = $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
-                            if ($user >= 1)
-                                $pageController->addComment($_GET['idChapter'], $user, $_POST['comment']);
-                            else
-                                echo "ERREUR : bad users";
-                        }
-                        else
-                            echo "ERREUR : CHAMPS VIDE A COMPLETER";
-                    }
-                    else
-                        echo "ERREUR : numéro de chapitre inconnu";
+                    $pageController->addComment($_GET['idChapter'], $_POST['comment']);
                     break;
                 default:
                     $pageController->sayWelcome();
