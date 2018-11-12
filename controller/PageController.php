@@ -116,4 +116,7 @@ class PageController {
     public function displayLoginPage() {
         require('view/frontend/login.php');
     }
+    public function displayRegisterPage() {
+        require('view/frontend/register.php');
+    }
 }

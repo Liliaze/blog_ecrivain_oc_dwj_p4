@@ -20,13 +20,16 @@ ob_start(); ?>
         </div>
         <div>
             <form action="index.php?action=addComment&amp;idChapter=<?= $data['id'] ?>" method="post">
-                <div>
-                    <label for="comment">Commentaire</label><br />
-                    <textarea id="commentTextarea" name="comment"></textarea>
-                </div>
-                <div>
-                    <input type="submit" />
-                </div>
+                <fieldset id="fieldsetLoginForm">
+                    <legend>Commentaires...</legend>
+                    <div>
+                        <label for="comment">Commentaire</label><br />
+                        <textarea id="commentTextarea" name="comment"></textarea>
+                    </div>
+                    <div>
+                        <input type="submit" />
+                    </div>
+                </fieldset>
             </form>
             <?= $textError ?>
         </div>

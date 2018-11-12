@@ -37,6 +37,11 @@
                     $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
                     $pageController->displayLoginPage();
                     break;
+                case 'registerUser':
+                    if (isset($_POST['login']) && isset($_POST['mdp']))
+                        $userController->registerUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                    $pageController->displayRegisterPage();
+                    break;
                 case 'unlog' :
                     $userController->unlog();
                     $pageController->displayLoginPage();
@@ -54,7 +59,8 @@
                         $pageController->signaledComment($_GET['idChapter'], $_GET['idComment']);
                     break;
                 case 'goAdmin' :
-                    $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                    if (isset($_POST['login']) && isset($_POST['mdp']))
+                        $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
                     $pageController->displayAdminPage();
                     break;
                 case 'goContact' :

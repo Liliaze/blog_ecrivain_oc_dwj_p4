@@ -28,6 +28,11 @@ class UserManager extends Manager
         }
         return false;
     }
+    public function registerUser($login, $mdp) {
+        $users = $this->_db->prepare('INSERT INTO users(login, mdp, lastConnexion, admin) VALUES (?, ?, NOW(), 0)');
+        $users->execute(array($login, $mdp));
+        $_SESSION['success'] = "Vous êtes maintenant enregistré et connecté sur le site";
+    }
     public function getStatus($login)
     {
         $users = $this->_db->prepare('SELECT users.admin FROM users WHERE login=?');

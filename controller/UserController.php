@@ -23,6 +23,7 @@ class UserController
         $_SESSION['admin'] = '';
         $_SESSION['login'] = '';
     }
+
     public function checkClassicUser($login, $mdp) {
         if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
             $this->_user = $this->_userManager->checkUser($login, $mdp);
@@ -35,6 +36,12 @@ class UserController
         }
         else {
             $this->unlog();
+        }
+    }
+    public function registerUser($login, $mdp) {
+        if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
+            $this->_userManager->registerUser($login, $mdp);
+            $this->checkClassicUser($login, $mdp);
         }
     }
     //ajout user / delete user.... / page profil

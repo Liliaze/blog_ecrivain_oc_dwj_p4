@@ -17,6 +17,8 @@ ob_start();
     </div>
     <h2>Liste des épisodes</h2>
     <p>TO DO /: Lister ici les épisodes avec boutons pour modifier, publier, dépublier ou supprimer</p>
+    <br/>
+    <a href="index.php?action=unlog"><button>Déconnexion</button></a>
 
 <?php
 $content = ob_get_clean();
