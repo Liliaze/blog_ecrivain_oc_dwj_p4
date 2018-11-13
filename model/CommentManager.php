@@ -52,25 +52,70 @@ class CommentManager extends Manager
         echo "retour deleteddComments : ".$deletedComment;
         return $deletedComment;
     }
+
     public function likeComment($idComment) {
-        $nbLikeInDataBase = $this->_db->prepare('SELECT nbLike FROM comments WHERE comments.id=?');
-        $nbLikeInDataBase->execute(array($idComment));
-        while ($data= $nbLikeInDataBase->fetch()){
+        $nbLike = $this->_db->prepare('SELECT comments.nbLike, comments.likerList FROM comments WHERE comments.id=?');
+        $nbLike->execute(array($idComment));
+        while ($data= $nbLike->fetch()) {
+            $arrayLiker = explode(";", $data['likerList']);
+            for($i = 0; $i < count($arrayLiker); $i++) {
+                if ($arrayLiker[$i] == $_SESSION['id']) {
+                    $data['nbLike'] -= 1;
+                    $addLike = $this->_db->prepare('UPDATE comments SET comments.nbLike=? WHERE comments.id=?');
+                    $addLike->execute(array($data['nbLike'], $idComment));
+
+                    unset($arrayLiker[$i]);
+                    $likerList = implode(";", $arrayLiker);
+                    $addId = $this->_db->prepare('UPDATE comments SET comments.likerList=? WHERE comments.id=?');
+                    $addId->execute(array($likerList, $idComment));
+                    return;
+                }
+            }
             $data['nbLike'] += 1;
-            $addLike = $this->_db->prepare('UPDATE comments SET nbLike=? WHERE comments.id=?');
+            $addLike = $this->_db->prepare('UPDATE comments SET comments.nbLike=? WHERE comments.id=?');
             $addLike->execute(array($data['nbLike'], $idComment));
+
+            if (trim($data['likerList']) == "")
+                $likerList = $_SESSION['id'];
+            else
+                $likerList = $data['likerList'] . ";" . $_SESSION['id'];
+            $addId = $this->_db->prepare('UPDATE comments SET comments.likerList=? WHERE comments.id=?');
+            $addId->execute(array($likerList, $idComment));
         }
-        $nbLikeInDataBase->closeCursor();
+        $nbLike->closeCursor();
+    }
+    private function newIdCommentList($array, $value, $idUser) {
+
     }
     public function dislikeComment($idComment) {
-        $nbDislikeInDataBase = $this->_db->prepare('SELECT nbDislike FROM comments WHERE comments.id=?');
-        $nbDislikeInDataBase->execute(array($idComment));
-        while ($data= $nbDislikeInDataBase->fetch()){
+        $nbDislike = $this->_db->prepare('SELECT comments.nbDislike, comments.dislikerList FROM comments WHERE comments.id=?');
+        $nbDislike->execute(array($idComment));
+        while ($data= $nbDislike->fetch()) {
+            $arrayDisliker = explode(";", $data['dislikerList']);
+            for($i = 0; $i < count($arrayDisliker); $i++) {
+                if ($arrayDisliker[$i] == $_SESSION['id']) {
+                    $data['nbDislike'] -= 1;
+                    $addDislike = $this->_db->prepare('UPDATE comments SET comments.nbDislike=? WHERE comments.id=?');
+                    $addDislike->execute(array($data['nbDislike'], $idComment));
+
+                    unset($arrayDisliker[$i]);
+                    $dislikerList = implode(";", $arrayDisliker);
+                    $addId = $this->_db->prepare('UPDATE comments SET comments.dislikerList=? WHERE comments.id=?');
+                    $addId->execute(array($dislikerList, $idComment));
+                    return;
+                }
+            }
             $data['nbDislike'] += 1;
-            $addDislike = $this->_db->prepare('UPDATE comments SET nbDislike=? WHERE comments.id=?');
+            $addDislike = $this->_db->prepare('UPDATE comments SET comments.nbDislike=? WHERE comments.id=?');
             $addDislike->execute(array($data['nbDislike'], $idComment));
-            echo $data['nbDislike']."fffffffffffffffffffff";
+
+            if (trim($data['dislikerList']) == "")
+                $dislikerList = $_SESSION['id'];
+            else
+                $dislikerList = $data['dislikerList'] . ";" . $_SESSION['id'];
+            $addId = $this->_db->prepare('UPDATE comments SET comments.dislikerList=? WHERE comments.id=?');
+            $addId->execute(array($dislikerList, $idComment));
         }
-        $nbDislikeInDataBase->closeCursor();
+        $nbDislike->closeCursor();
     }
 }
