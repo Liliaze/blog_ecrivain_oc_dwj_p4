@@ -27,7 +27,7 @@ header {
     position: fixed;
     top:0;
     height: 80px;
-    background-color: darkslategray;
+    /*background-color: darkslategray;*/
     z-index: 10;
 }
 footer {
@@ -153,4 +153,37 @@ input:focus, textarea:focus {
 textarea {
     height: 5em;
     resize: vertical;
+}
+#welcomeUser {
+    margin-top: 15px;
+}
+/*========================== ADMIN - TYNIMCE ==============*/
+
+#newArticle {
+    height: 50vh;
+}
+.buttonModifyChapter{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.buttonModifyChapter a {
+    font-size: 0.8em;
+    color: white;
+    background-color: #1b6d85;
+    border: 1px solid #122b40;
+    margin: 7px 5px auto 5px;
+    padding: 5px;
+}
+.adminTitleChapter {
+    font-size: 1.2em;
+    color: #122b40;
+    font-weight: bold;
+}
+.adminExtractChapter {
+    color: black;
+}
+.adminDateChapter {
+    font-style: italic;
+    font-size: 0.9em;
 }

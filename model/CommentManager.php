@@ -20,7 +20,7 @@ class CommentManager extends Manager
     }
     public function addComment($chapterId, $idLogin, $comment)
     {
-        $comments = $this->_db->prepare('INSERT INTO comments(idChapter, idUsers, comment, creationDate, manualApprove, nbLike, nbDislike, signaled, banished) VALUES(?, ?, ?, NOW(), 0, 0, 0, 0, 0)');
+        $comments = $this->_db->prepare('INSERT INTO comments(idChapter, idUsers, comment, creationDate, manualApprove, nbLike, likerList, nbDislike, dislikerList, signaled, banished) VALUES(?, ?, ?, NOW(), 0, 0, 0, 0, 0, 0, 0)');
         $affectedLines = $comments->execute(array($chapterId, $idLogin, $comment));
         return $affectedLines;
     }

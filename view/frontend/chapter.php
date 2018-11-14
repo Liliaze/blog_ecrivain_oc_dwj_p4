@@ -10,12 +10,12 @@ ob_start(); ?>
     <h1>AMBIVALENCE</h1>
     <div class="chapter col-lg-12">
     <?php while ($data= $this->_oneChapter->fetch())  { ?>
-            <h2>Chapitre : <?= htmlspecialchars($data['id']) ?>
+            <h2>Chapitre : <?= htmlspecialchars($data['numberChapter']) ?>
                 </br><span class="extractTitle"><?= htmlspecialchars($data['title']) ?></span>
                 </br><span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
             </h2>
             <p>
-                <?= nl2br(htmlspecialchars($data['content'])) ?> <br />
+                <?= nl2br($data['content']) ?> <br />
             </p>
         </div>
         <div>
@@ -24,10 +24,10 @@ ob_start(); ?>
                     <legend>Commentaires...</legend>
                     <div>
                         <label for="comment">Commentaire</label><br />
-                        <textarea id="commentTextarea" name="comment"></textarea>
+                        <textarea id="commentTextarea" name="comment" required></textarea>
                     </div>
                     <div>
-                        <input type="submit" />
+                        <button type="submit">Poster le commentaire</button>
                     </div>
                 </fieldset>
             </form>

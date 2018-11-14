@@ -17,7 +17,7 @@ if (isset($_SESSION['success']) && $_SESSION['success'] != '') {
 if (isset($_SESSION['info']) && $_SESSION['info'] != '') {
     ob_start();?>
     <div class="alert alert-info" role="alert">
-        <strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important.
+        <strong><?=$_SESSION['info']?></strong>
     </div>
     <?php $alert = $alert.ob_get_clean();
     $_SESSION['info'] = '';

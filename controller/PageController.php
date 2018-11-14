@@ -12,12 +12,12 @@ require_once('model/CommentManager.php');
 //ne mettre que chapterController
 
 class PageController {
-    private $_chapterManager;
-    private $_commentManager;
-    private $_oneChapter;
-    private $_lastChapter;
-    private $_chapterList;
-    private $_commentsChapterList;
+    protected $_chapterManager;
+    protected $_commentManager;
+    protected $_oneChapter;
+    protected $_lastChapter;
+    protected $_chapterList;
+    protected $_commentsChapterList;
 
     public function __construct() {
         $this->_chapterManager = new ChapterManager();
@@ -51,7 +51,7 @@ class PageController {
     {
         if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             if ($idChapter > 0) {
-                if (!empty(htmlspecialchars($_POST['comment']))) {
+                if (!empty(htmlspecialchars($comment))) {
                     $this->_commentManager->addComment($idChapter, $_SESSION['id'], $comment);
                     $_SESSION['success'] = 'Commentaire ajouté avec succès';
                 }
@@ -107,16 +107,12 @@ class PageController {
     public function displayContactPage() {
         require('view/frontend/contact.php');
     }
-    public function displayAdminPage() {
-        if ($_SESSION['admin'] == 1)
-            require('view/admin/admin.php');
-        else
-            require('view/frontend/adminLogin.php');
-    }
+
     public function displayLoginPage() {
         require('view/frontend/login.php');
     }
     public function displayRegisterPage() {
         require('view/frontend/register.php');
     }
+
 }

@@ -15,16 +15,16 @@ ob_start();
           <?php while ($data= $this->_lastChapter->fetch()) {?>
             <div class="extractChapter">
                 <h3>
-                    <span class="extractTitle"><?= "Episode ".htmlspecialchars($data['id']). " : " . htmlspecialchars($data['title']) ?></span>
+                    <span class="extractTitle"><?= "Episode ".$data['numberChapter']. " : " . $data['title'] ?></span>
                     </br>
                     <span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
                 </h3>
                 <p>
-                    <?= substr(nl2br(htmlspecialchars($data['content'])), 0, 255);  ?>
+                    <?= substr(nl2br($data['content']), 0, 255);  ?>
                     <br/>
                 </p>
                 <p class="readMore">
-                    <a class="readMore" href="index.php?action=goChapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>"
+                    <a class="readMore" href="index.php?action=goChapter&amp;idChapter=<?=$data['id']?>"
                     <br/>Lire plus...</a>
                 </p>
                 <br />
