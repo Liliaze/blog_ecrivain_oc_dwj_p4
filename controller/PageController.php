@@ -35,10 +35,6 @@ class PageController {
     }
     public function displayChapter($idChapter)
     {
-        if($_SESSION['id'] == 0)
-            $textError = '<a href="index.php?action=goLogin"><button>Connexion au site</button></a>';
-        else
-            $textError = '';
         $this->setOneChapter($idChapter);
         $this->setCommentsChapterList($idChapter);
         require('view/frontend/chapter.php');

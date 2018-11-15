@@ -18,10 +18,12 @@ class UserController
         $this->_userManager = new UserManager();
     }
 
-    public function unlog() {
+    public function unlog($previousURL) {
         $_SESSION['id'] = '';
         $_SESSION['admin'] = '';
         $_SESSION['login'] = '';
+        $_SESSION['success'] = 'Déconnexion réussie'.$previousURL;
+       /* header('location'.$previousURL);*/
     }
 
     public function checkClassicUser($login, $mdp) {

@@ -27,7 +27,7 @@ header {
     position: fixed;
     top:0;
     height: 80px;
-    /*background-color: darkslategray;*/
+    background-color: darkslategray;
     z-index: 10;
 }
 footer {
@@ -40,6 +40,9 @@ footer {
     width: 90vw;
     margin: 100px auto 1em auto;
     background-color: white;
+}
+.bottom {
+    margin-bottom: 3em;
 }
 #home {
     text-align: center;
@@ -64,7 +67,13 @@ footer {
     text-align: left;
     margin:auto;
 }
-
+.postComment {
+    text-align: left;
+    margin:auto;
+}
+.divPostComment {
+    border: 1px groove dodgerblue;
+}
 /*========================== NAVIGATION MENU ==============================*/
 
 ul#menu {
@@ -90,26 +99,55 @@ ul#menu a i {
 
 /*+++++++++++++++++++++++++++++++ COMMENT MENU +++++++++++++++++++++++++++*/
 
+.oneComment {
+    border: 1px lightskyblue dashed;
+    padding: 5px;
+}
 .menuComment {
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-content: center;
     list-style: none;
+    margin: 0;
+    padding: 0;
 }
 .menuComment li {
-    width: 5%;
+    width: 8%;
     padding: 5px;
+    margin:0;
     font-size: 0.8em;
+    text-align: center;
+    border-top: #1b6d85 2px solid;
+    border-bottom: #1b6d85 2px solid;
+    border-left: #1b6d85 2px solid;
 }
 #like {
+    background-color: white;
     color: green;
 }
 #dislike {
+    background-color: white;
     color: firebrick;
 }
+#likeButton{
+    background-color: lightgreen;
+}
+#dislikeButton {
+    background-color: lightblue;
+}
 #signaled {
-    color: darkslategray;
+    background-color: lightcoral;
+}
+#likeButton:hover, #dislikeButton:hover, #signaled:hover{
+    background-color: lightblue;
+    color: black;
+}
+#likeButton i, #dislikeButton i, #signaled i{
+    color: black;
+}
+.rightLi {
+    border-right: #1b6d85 2px solid;
 }
 /*=========================== CONTACT FORM ==================================*/
 

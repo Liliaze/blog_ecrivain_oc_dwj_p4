@@ -51,8 +51,8 @@
                     $pageController->displayRegisterPage();
                     break;
                 case 'logout' :
-                    $userController->unlog();
-                    $pageController->displayLoginPage();
+                    if(isset($_GET['previousURL']))
+                        $userController->unlog($_GET['previousURL']);
                     break;
                 case 'likeComment' :
                     if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0)

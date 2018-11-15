@@ -7,8 +7,8 @@
  */
 ob_start();
 ?>
-    <h1>JEAN-FORTEROCHE</h1>
-    <h2>Romancié</h2>
+    <h1>JEAN FORTEROCHE</h1>
+    <h2>Romancier</h2>
     <div id="authorDiv">
         <figure>
             <img src="public/image/Jean_de_La_Fontaine.jpg" alt="Jean Forteroche portrait" />
