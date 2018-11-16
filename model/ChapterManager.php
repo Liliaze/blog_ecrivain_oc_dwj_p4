@@ -12,7 +12,7 @@ class ChapterManager extends Manager
 {
     public function getChapterList()
     {
-        $chapter = $this->_db->query('SELECT id, numberChapter, title, content, DATE_FORMAT(creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS update_date_fr, nbLike, nbDislike FROM chapter ORDER BY id DESC ');
+        $chapter = $this->_db->query('SELECT id, numberChapter, title, content, DATE_FORMAT(creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS update_date_fr, published, nbLike, nbDislike FROM chapter ORDER BY id DESC ');
         return $chapter;
     }
     public function getChapter($postId)

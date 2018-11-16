@@ -30,7 +30,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == '') {
     </div>
     <div id="welcomeUser">
             <p>Bonjour nous ne vous reconnaissons pas, merci de vous identifier</p>
-            <p>Première connexion ? <a href="index.php?action=registerUser">Enregistrez-vous ici !</a></p>
+            <p>Première connexion ? <a href="index.php?action=register">Enregistrez-vous ici !</a></p>
     </div>
 <?php
 }

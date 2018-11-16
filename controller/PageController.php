@@ -17,6 +17,7 @@ class PageController {
     protected $_oneChapter;
     protected $_lastChapter;
     protected $_chapterList;
+    protected $_commentsSignaledList;
     protected $_commentsChapterList;
 
     public function __construct() {
@@ -26,6 +27,9 @@ class PageController {
     }
     public function updateChapterList() {
         $this->_chapterList = $this->_chapterManager->getChapterList();
+    }
+    public function updateCommentSignaledList() {
+        $this->_commentsSignaledList = $this->_commentManager->getSignaledList();
     }
     public function setOneChapter($idChapter) {
         $this->_oneChapter = $this->_chapterManager->getChapter($idChapter);
@@ -62,7 +66,8 @@ class PageController {
         else {
             $_SESSION['warning'] = 'Merci de vous identifier pour pouvoir poster un commentaire';
         }
-        $this->displayChapter($idChapter);
+        header('location: index.php?action=chapter&idChapter='.$idChapter);
+        //$this->displayChapter($idChapter);
     }
     public function likeComment($idChapter, $idComment) {
         if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
@@ -71,7 +76,8 @@ class PageController {
         else {
              $_SESSION['warning'] = 'Merci de vous identifier pour pouvoir aimer un commentaire';
         }
-        $this->displayChapter($idChapter);
+        header('location: index.php?action=chapter&idChapter='.$idChapter);
+        //$this->displayChapter($idChapter);
     }
     public function dislikeComment($idChapter, $idComment) {
         if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
@@ -83,13 +89,10 @@ class PageController {
         $this->displayChapter($idChapter);
     }
     public function signaledComment($idChapter, $idComment) {
-        if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
-            $this->_commentManager->signalComment($idComment);
-        }
-        else {
-            $_SESSION['warning'] = 'Merci de vous identifier pour SIGNALER un commentaire';
-        }
-        $this->displayChapter($idChapter);
+        $this->_commentManager->signalComment($idComment);
+        $_SESSION['success'] = "Commentaire signalé !";
+        header('location: index.php?action=chapter&idChapter='.$idChapter);
+        //$this->displayChapter($idChapter);
     }
     public function sayWelcome()
     {
@@ -109,6 +112,9 @@ class PageController {
     }
     public function displayRegisterPage() {
         require('view/frontend/register.php');
+    }
+    public function displayLegalPage() {
+        require('view/frontend/legal.php');
     }
 
 }

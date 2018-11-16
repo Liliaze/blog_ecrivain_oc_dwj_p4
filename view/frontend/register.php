@@ -10,7 +10,7 @@ ob_start();
     <h1>Première connexion ?</h1>
     <h2>Enregistrez-vous</h2>
     <div id="divForm">
-        <form action="index.php?action=registerUser" id="loginForm" method="post">
+        <form action="index.php?action=register" id="loginForm" method="post">
             <fieldset id="fieldsetLoginForm">
                 <legend>Inscription...</legend>
                 <div>

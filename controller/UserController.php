@@ -11,35 +11,46 @@ require_once('model/UserManager.php');
 class UserController
 {
     private $_userManager;
-    private $_user;
-    private $_admin;
 
     public function __construct() {
         $this->_userManager = new UserManager();
     }
 
-    public function unlog($previousURL) {
+    public function logout() {
         $_SESSION['id'] = '';
         $_SESSION['admin'] = '';
         $_SESSION['login'] = '';
-        $_SESSION['success'] = 'Déconnexion réussie'.$previousURL;
-       /* header('location'.$previousURL);*/
+        $_SESSION['success'] = 'Déconnexion réussie';
+        header( 'location: index.php?action=login');
     }
 
     public function checkClassicUser($login, $mdp) {
         if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
-            $this->_user = $this->_userManager->checkUser($login, $mdp);
-            if ($this->_user != null) {
-                $_SESSION['id'] = $this->_user;
-                $_SESSION['login'] = $login;
-                $_SESSION['admin'] = ($this->_user == 1) ? 1 : 0;
-                $_SESSION['success'] = 'BIENVENUE ' . $login . ' : vous êtes connecté';
+            $user = $this->_userManager->checkUser($login, $mdp);
+            if ($user->rowCount() != 1) {
+                $_SESSION['error'] = "Erreur : identifiant inconnu, merci de vérifier vos données. Première connexion ? enregistrez-vous : ";
+                return false;
             }
+            while ($data = $user->fetch()) {
+                if ($data['mdp'] != $mdp) {
+                    $_SESSION['error'] = "Erreur : mauvais mot de passe";
+                    return false;
+                }
+                else {
+                    $_SESSION['id'] = $data['id'];
+                    $_SESSION['login'] = $data['login'];
+                    $_SESSION['admin'] = $data['admin'];
+                    $_SESSION['success'] = 'BIENVENUE'.$_SESSION['login'] ;
+                }
+            }
+            $user->closeCursor();
         }
         else {
-            $this->unlog();
+            $_SESSION['error'] = 'erreur champs login ou mdp vide';
+            $this->logout();
         }
     }
+
     public function registerUser($login, $mdp) {
         if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
             $this->_userManager->registerUser($login, $mdp);

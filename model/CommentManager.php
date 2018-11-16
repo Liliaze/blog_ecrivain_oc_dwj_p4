@@ -12,11 +12,17 @@ class CommentManager extends Manager
 {
     public function getComments($chapterId)
     {
-        $comments = $this->_db->prepare('SELECT comments.id, comments.idChapter, comments.comment, DATE_FORMAT(comments.creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, users.login, comments.nbLike, comments.nbDislike, comments.signaled
+        $comments = $this->_db->prepare('SELECT comments.id, comments.idChapter, comments.comment, DATE_FORMAT(comments.creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, users.login, comments.manualApprove, comments.nbLike, comments.nbDislike, comments.signaled
             FROM comments INNER JOIN users ON comments.idUsers = users.id
             WHERE comments.idChapter=? ORDER BY comment_date_fr DESC');
         $comments->execute(array($chapterId));
         return $comments;
+    }
+    public function getSignaledList() {
+        $signaledList = $this->_db->query('SELECT comments.id, chapter.numberChapter, chapter.title, comments.comment, DATE_FORMAT(comments.creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, users.login, comments.nbLike, comments.nbDislike, comments.signaled
+            FROM comments INNER JOIN users ON comments.idUsers = users.id INNER JOIN chapter ON comments.idChapter = chapter.id
+            WHERE comments.signaled=1 AND comments.manualApprove=0 ORDER BY comment_date_fr DESC');
+        return $signaledList;
     }
     public function addComment($chapterId, $idLogin, $comment)
     {
@@ -27,32 +33,23 @@ class CommentManager extends Manager
     public function signalComment($id)
     {
         $comments = $this->_db->prepare('UPDATE comments SET signaled=1 WHERE id=?');
-        $signaledComment = $comments->execute(array($id));
-        echo "retour signalComments : ".$signaledComment;
-        return $signaledComment;
+        $comments->execute(array($id));
     }
-    public function approveComment($chapterId, $author, $comment)
+    public function approveComment($id)
     {
         $comments = $this->_db->prepare('UPDATE comments SET manualApprove=1 WHERE id=?');
-        $approvedComment = $comments->execute(array($chapterId));
-        echo "retour approuvedComments : ".$approvedComment;
-        return $approvedComment;
+        $comments->execute(array($id));
     }
-    public function deleteComment($chapterId, $author, $comment)
+    public function deleteComment($id)
     {
         $comments = $this->_db->prepare('UPDATE comments SET banished=1 WHERE id=?');
-        $banishedComment = $comments->execute(array($chapterId));
-        echo "retour banishedComments : ".$banishedComment;
-        return $banishedComment;
+        $comments->execute(array($id));
     }
-    public function hardDeleteComment($chapterId, $author, $comment)
+    public function hardDeleteComment($id)
     {
         $comments = $this->_db->prepare('DELETE FROM comments WHERE id=?');
-        $deletedComment = $comments->execute(array($chapterId));
-        echo "retour deleteddComments : ".$deletedComment;
-        return $deletedComment;
+        $comments->execute(array($id));
     }
-
     public function likeComment($idComment) {
         $nbLike = $this->_db->prepare('SELECT comments.nbLike, comments.likerList FROM comments WHERE comments.id=?');
         $nbLike->execute(array($idComment));

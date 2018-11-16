@@ -25,15 +25,10 @@ while ($data = $chapter->fetch())  {
         <div>
             <button type="submit" form="formNewArticle" name="save" value="save">Enregistrer</button>
             <button type="submit" form="formNewArticle" name="save" value="publish">Publier</button>
-            <button type="submit" form="formNewArticle" name="save" value="goChapter">Publier et voir en ligne</button>
-            <button type="submit" form="formNewArticle" name="save" value="goAdmin">Retour à la gestion du site</button>
+            <button type="submit" form="formNewArticle" name="save" value="chapter">Publier et voir en ligne</button>
+            <button type="submit" form="formNewArticle" name="save" value="admin">Retour à la gestion du site</button>
         </div>
     </form>
-    <div class="col-lg-12">
-        <a href="index.php?action=admin&amp;adminAction=publish&amp;idChapter=<?=htmlspecialchars($data['id'])?>"><button>Publier</button></a>
-        <a href="index.php?action=admin&amp;adminAction=goChapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>"><button>Voir en ligne</button></a>
-        <a href="index.php?action=admin&amp;adminAction=goAdmin"><button>Retour à la gestion des épisodes</button></a>
-    </div>
 <?php }
 $content = ob_get_clean();
 require('./view/frontend/template.php'); ?>

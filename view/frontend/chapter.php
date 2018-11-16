@@ -35,7 +35,7 @@ ob_start(); ?>
     <?php } else { ?>
         <div class="postComment col-lg-12">
             <h3>Connectez-vous pour poster un commentaire :</h3>
-            <a href="index.php?action=goLogin"><button>Connexion au site</button></a>
+            <a href="index.php?action=login"><button>Connexion au site</button></a>
         </div>
     <?php }
     }
@@ -57,11 +57,17 @@ ob_start(); ?>
                         <?= nl2br(htmlspecialchars($data['comment'])) ?> <br />
                     </p>
                     <ul class="menuComment bottom">
-                        <li id="like" class="leftLi"><?= $data['nbLike'] ?></li>
-                        <li id="likeButton"><a href="index.php?action=likeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="far fa-thumbs-up"></i></a></li>
-                        <li id="dislike"><?= $data['nbDislike'] ?></li>
-                        <li id="dislikeButton"><a href="index.php?action=unlikeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id']?> "><i class="far fa-thumbs-down"></i></a></li>
-                        <li id="signaled" class="rightLi"><a href="index.php?action=signaledComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="fas fa-door-closed">&nbspsignaler</i></a></li>
+                        <li class="like" class="leftLi"><?= $data['nbLike'] ?></li>
+                        <li class="likeButton"><a href="index.php?action=likeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="far fa-thumbs-up"></i></a></li>
+                        <li class="dislike"><?= $data['nbDislike'] ?></li>
+                        <li class="dislikeButton"><a href="index.php?action=unlikeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id']?> "><i class="far fa-thumbs-down"></i></a></li>
+                        <?php if ($data['signaled'] == 0) {?>
+                            <li class="signaledButton" class="rightLi"><a href="index.php?action=signaledComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="fas fa-door-closed">&nbspsignaler</i></a></li>
+                        <?php } else if ($data['signaled'] == 1 && $data['manualApprove'] == 0) {?>
+                        <li class="signaled" class="rightLi"><i class="fas fa-door-closed">&nbspCommentaire a été signalé et est en attente de modération</i></li>
+                        <?php }  else if ($data['signaled'] == 1 && $data['manualApprove'] == 1) {?>
+                        <li class="approve" class="rightLi"><i class="fas fa-door-closed">&nbspCommentaire approuvé malgrès son signalement</i></li>
+                    <?php } ?>
                     </ul>
                 </div>
         <?php }?>

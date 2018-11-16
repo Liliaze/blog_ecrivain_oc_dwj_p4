@@ -27,7 +27,7 @@ header {
     position: fixed;
     top:0;
     height: 80px;
-    background-color: darkslategray;
+    /*background-color: darkslategray;*/
     z-index: 10;
 }
 footer {
@@ -46,6 +46,9 @@ footer {
 }
 #home {
     text-align: center;
+}
+#authorImg {
+    width :30%;
 }
 .extractChapter {
     padding: 15px;
@@ -101,6 +104,7 @@ ul#menu a i {
 
 .oneComment {
     border: 1px lightskyblue dashed;
+    margin-bottom: 5px;
     padding: 5px;
 }
 .menuComment {
@@ -196,16 +200,45 @@ textarea {
     margin-top: 15px;
 }
 /*========================== ADMIN - TYNIMCE ==============*/
+#noSignaledComment {
+    color: forestgreen;
+    font-style: italic;
+}
+.figureAdmin {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+}
+.figureAdmin figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    border : 3px groove #1b6d85;
+    padding: 15px;
+    margin: 15px;
+    height: 260px;
+}
 
+.figureAdmin figure figcaption {
+    text-align: center;
+    font-size: 1.5em;
+    color: royalblue;
+}
+
+#plume, #commentChecking {
+    margin: auto;
+    width: 45%;
+    max-width: 500px;
+}
 #newArticle {
     height: 50vh;
 }
-.buttonModifyChapter{
+.buttonModify{
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
-.buttonModifyChapter a {
+.buttonModify a {
     font-size: 0.8em;
     color: white;
     background-color: #1b6d85;
@@ -213,15 +246,22 @@ textarea {
     margin: 7px 5px auto 5px;
     padding: 5px;
 }
-.adminTitleChapter {
+.adminTitleChapter, .adminCommentLogin {
     font-size: 1.2em;
-    color: #122b40;
+    color: midnightblue;
     font-weight: bold;
 }
-.adminExtractChapter {
+.adminExtractChapter, .adminCommentContent {
+    font-size: 1.1em;
     color: black;
 }
-.adminDateChapter {
+.adminCommentChapter {
+    font-size: 1em;
+    color: royalblue;
+}
+
+.adminDateChapter, .adminCommentLike {
     font-style: italic;
     font-size: 0.9em;
+    color: black;
 }

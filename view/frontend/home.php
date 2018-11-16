@@ -8,8 +8,8 @@
 ob_start();
 ?>
     <div id="home">
-        <h1>AMBIVALENCE</h1>
-        <img src="public/image/ambivalenceCover.jpg">
+        <h1>BILLET SIMPLE POUR L'ALASKA</h1>
+        <img src="public/image/cover.jpg">
         <h2>Extrait du dernier épisode :</h2>
         <div >
           <?php while ($data= $this->_lastChapter->fetch()) {?>
@@ -24,7 +24,7 @@ ob_start();
                     <br/>
                 </p>
                 <p class="readMore">
-                    <a class="readMore" href="index.php?action=goChapter&amp;idChapter=<?=$data['id']?>"
+                    <a class="readMore" href="index.php?action=chapter&amp;idChapter=<?=$data['id']?>"
                     <br/>Lire plus...</a>
                 </p>
                 <br />

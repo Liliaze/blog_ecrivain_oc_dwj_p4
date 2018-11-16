@@ -11,12 +11,14 @@ class AdminController extends PageController
     public function checkIsAdmin() {
         if ($_SESSION['admin'] == 1)
             return true;
-        else {
-            require('view/frontend/adminLogin.php');
-            return false;
+        else if ($_SESSION['admin'] == 0){
+            header( 'location: index.php?action=home');
+            exit();
         }
     }
     public function displayAdminPage() {
+            $this->updateChapterList();
+            $this->updateCommentSignaledList();
             require('view/admin/admin.php');
     }
     public function createNewArticle() {
@@ -34,7 +36,7 @@ class AdminController extends PageController
     public function publish($id) {
         $this->_chapterManager->publishChapter($id);
         $_SESSION['success'] = "Chapitre publiée";
-        $this->displayAdminPage();
+        header('location: index.php?action=admin');
     }
     public function saveArticle($action, $id, $number, $newTitle, $newArticle) {
         $this->save($id, $number, $newTitle, $newArticle);
@@ -45,13 +47,13 @@ class AdminController extends PageController
                 $this->_chapterManager->publishChapter($id);
                 $_SESSION['success'] = "Modifications sauvegardées et article publié";
                 break;
-            case 'goChapter':
+            case 'chapter':
                 $this->_chapterManager->publishChapter($id);
                 $_SESSION['success'] = "Modifications sauvegardées et article publié, le voici :";
-                $this->displayChapter($id);
+                header('location: index.php?action=admin&idChapter='.$id);
                 return;
-            case 'goAdmin':
-                $this->displayAdminPage();
+            case 'admin':
+                header('location: index.php?action=admin');
                 return;
             default:
                 $_SESSION['error'] = "une erreur est survenue, action non reconnue";
@@ -67,11 +69,21 @@ class AdminController extends PageController
     public function deleteChapter($id) {
         $this->_chapterManager->deleteDefinitivelyChapter($id);
         $_SESSION['success'] = "Article définitivement supprimé";
-        $this->displayAdminPage();
+        header('location: index.php?action=admin');
     }
     public function unPublish($id) {
         $newChapter = $this->_chapterManager->lightDeleteChapter($id);
         $_SESSION['success'] = "Article non publié";
-        $this->displayAdminPage();
+        header('location: index.php?action=admin');
+    }
+    public function deleteComment($id) {
+        $this->_commentManager->hardDeleteComment($id);
+        $_SESSION['success'] = "Commentaire définitivement supprimé.";
+        header('location: index.php?action=admin');
+    }
+    public function approveComment($id) {
+        $this->_commentManager->approveComment($id);
+        $_SESSION['success'] = "Commentaire approuvée";
+        header('location: index.php?action=admin');
     }
 }
