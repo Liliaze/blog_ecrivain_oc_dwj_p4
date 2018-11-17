@@ -96,7 +96,7 @@ class PageController {
     }
     public function sayWelcome()
     {
-        $this->_lastChapter = $this->_chapterManager->getLastChapter();
+        $this->_lastChapter = $this->_chapterManager->getLastPublishChapter();
         require('view/frontend/home.php');
     }
     public function displayAuthorPage()

@@ -8,9 +8,6 @@
 ob_start();
 ?>
     <div id="legal">
-        <p style="text-align:center"><span style="color:#FF0000"><span style="background-color:#D3D3D3">Si vous utilisez nos Mentions Légales, vous vous engagez à laisser les liens </span><strong><span style="background-color:#D3D3D3">Crédit sans en modifier ni les liens ni les ancres.</span></strong><span style="background-color:#D3D3D3"> </span></span><br />
-            <span style="color:#FF0000"><span style="background-color:#D3D3D3">Par avance merci pour votre compréhension et le respect du travail effectué par toute l'équipe</span></span></p>
-
         <p style="text-align:center">MENTIONS LEGALES :</p>
 
         <p style="text-align:justify">Conformément aux dispositions des articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'économie numérique, dite L.C.E.N., nous portons à la connaissance des utilisateurs et visiteurs du site : <a href="http://34.207.144.115/blog" target="_blank">34.207.144.115/blog</a> les informations suivantes :</p>

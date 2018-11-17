@@ -28,7 +28,7 @@ class UserController
         if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
             $user = $this->_userManager->checkUser($login, $mdp);
             if ($user->rowCount() != 1) {
-                $_SESSION['error'] = "Erreur : identifiant inconnu, merci de vérifier vos données. Première connexion ? enregistrez-vous : ";
+                $_SESSION['warning'] = "Erreur : identifiant inconnu, merci de vérifier vos données.";
                 return false;
             }
             while ($data = $user->fetch()) {
@@ -40,7 +40,7 @@ class UserController
                     $_SESSION['id'] = $data['id'];
                     $_SESSION['login'] = $data['login'];
                     $_SESSION['admin'] = $data['admin'];
-                    $_SESSION['success'] = 'BIENVENUE'.$_SESSION['login'] ;
+                    $_SESSION['success'] = 'Bienvenue '.$_SESSION['login'] . " !" ;
                 }
             }
             $user->closeCursor();
@@ -55,7 +55,10 @@ class UserController
         if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
             $this->_userManager->registerUser($login, $mdp);
             $this->checkClassicUser($login, $mdp);
+            header('location: index.php?action=login');
         }
+        else
+            $_SESSION['warning'] = "Merci de vérifier les données saisies";
     }
     //ajout user / delete user.... / page profil
 }

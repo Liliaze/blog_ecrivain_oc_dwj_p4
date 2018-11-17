@@ -41,7 +41,8 @@
                 case 'register':
                     if (isset($_POST['login']) && isset($_POST['mdp']))
                         $userController->registerUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
-                    $pageController->displayRegisterPage();
+                    else
+                        $pageController->displayRegisterPage();
                     break;
                 case 'login' :
                     $pageController->displayLoginPage();

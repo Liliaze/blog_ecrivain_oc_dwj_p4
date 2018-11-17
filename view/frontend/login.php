@@ -35,15 +35,17 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == '') {
 <?php
 }
 else { ?>
-    <div id="welcomeUser">
+        <div id="welcomeUser">
+            <?php if (isset($_SESSION['login'])) {?>
         <p>Bonjour, <?= $_SESSION['login'] ?> vous pouvez dès à présent poster des commentaires</p>
 
         <p>Ce n'est pas vous ? Vous pouvez vous déconnecter :</p>
         <a href="index.php?action=logout">
             <button>Déconnexion</button>
         </a>
-    </div>
-    <?php
+        </div>
+        <?php
+    }
 }
 $content = ob_get_clean();
 require('template.php'); ?>

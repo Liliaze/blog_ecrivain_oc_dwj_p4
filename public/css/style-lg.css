@@ -27,7 +27,7 @@ header {
     position: fixed;
     top:0;
     height: 80px;
-    /*background-color: darkslategray;*/
+    background-color: darkslategray;
     z-index: 10;
 }
 footer {
@@ -117,37 +117,58 @@ ul#menu a i {
     padding: 0;
 }
 .menuComment li {
-    width: 8%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
     padding: 5px;
+    min-width: 50px;
     margin:0;
-    font-size: 0.8em;
+    font-size: 1em;
     text-align: center;
     border-top: #1b6d85 2px solid;
     border-bottom: #1b6d85 2px solid;
     border-left: #1b6d85 2px solid;
 }
-#like {
+.menuComment li a {
+    width: 100%;
+}
+.like {
     background-color: white;
     color: green;
 }
-#dislike {
+.dislike {
     background-color: white;
     color: firebrick;
 }
-#likeButton{
+.likeButton{
     background-color: lightgreen;
 }
-#dislikeButton {
+.dislikeButton {
     background-color: lightblue;
 }
-#signaled {
+.signaledButton {
     background-color: lightcoral;
 }
-#likeButton:hover, #dislikeButton:hover, #signaled:hover{
-    background-color: lightblue;
+.approve {
+    background-color: white;
+}
+.signaled{
+    background-color: sandybrown;
+}
+.likeButton:hover {
+    background-color: mediumspringgreen;
     color: black;
 }
-#likeButton i, #dislikeButton i, #signaled i{
+.dislikeButton:hover {
+     background-color: deepskyblue;
+     color: black;
+ }
+.signaledButton:hover {
+      background-color: orangered;
+      color: black;
+  }
+.likeButton i, .dislikeButton i, .signaledButton i{
     color: black;
 }
 .rightLi {

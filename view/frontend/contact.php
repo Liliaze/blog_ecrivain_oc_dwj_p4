@@ -11,15 +11,15 @@ ob_start();
     <form action="authentificationComment" method="post">
         <div>
             <label for="nom">Nom :</label>
-            <input type="text" id="nom" name="user_name">
+            <input type="text" id="nom" name="user_name" required>
         </div>
         <div>
             <label for="courriel">Courriel :</label>
-            <input type="email" id="courriel" name="user_email">
+            <input type="email" id="courriel" name="user_email" required>
         </div>
         <div>
             <label for="message">Message :</label>
-            <textarea id="message" name="user_message"></textarea>
+            <textarea id="message" name="user_message" required></textarea>
         </div>
         <div class="button">
             <button type="submit">Envoyer le message</button>

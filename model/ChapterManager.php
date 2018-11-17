@@ -21,11 +21,16 @@ class ChapterManager extends Manager
         $chapter->execute(array($postId));
         return $chapter;
     }
-    public function getLastChapter()
+    public function getLastPublishChapter()
     {
-        $lastChapter = $this->_db->query('SELECT id, numberChapter, title, content, DATE_FORMAT(creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS update_date_fr FROM chapter ORDER BY id DESC LIMIT 1');
+        $lastChapter = $this->_db->query('SELECT id, numberChapter, title, content, DATE_FORMAT(creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS update_date_fr FROM chapter WHERE published=1 ORDER BY id DESC LIMIT 1');
         return $lastChapter;
     }
+    public function getLastChapter()
+{
+    $lastChapter = $this->_db->query('SELECT id, numberChapter, title, content, DATE_FORMAT(creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS creation_date_fr, DATE_FORMAT(updateDate, \'%d/%m/%Y à %Hh%imin%ss\') AS update_date_fr FROM chapter ORDER BY id DESC LIMIT 1');
+    return $lastChapter;
+}
     public function newChapter($title, $number, $content)
     {
         ////TO-DO : corriger requete !!!!

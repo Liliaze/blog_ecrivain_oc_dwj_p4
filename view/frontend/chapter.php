@@ -7,8 +7,8 @@
  */
 
 ob_start(); ?>
-<div class="content">
-    <h1>AMBIVALENCE</h1>
+<div class="content col-lg-12">
+    <h1>BILLET SIMPLE POUR L'ALASKA</h1>
     <div class="chapter col-lg-12">
     <?php while ($data= $this->_oneChapter->fetch()) { ?>
         <h2>Chapitre : <?= htmlspecialchars($data['numberChapter']) ?>
@@ -62,11 +62,11 @@ ob_start(); ?>
                         <li class="dislike"><?= $data['nbDislike'] ?></li>
                         <li class="dislikeButton"><a href="index.php?action=unlikeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id']?> "><i class="far fa-thumbs-down"></i></a></li>
                         <?php if ($data['signaled'] == 0) {?>
-                            <li class="signaledButton" class="rightLi"><a href="index.php?action=signaledComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="fas fa-door-closed">&nbspsignaler</i></a></li>
+                            <li class="signaledButton rightLi"><a href="index.php?action=signaledComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="fas fa-door-closed">&nbspsignaler</i></a></li>
                         <?php } else if ($data['signaled'] == 1 && $data['manualApprove'] == 0) {?>
-                        <li class="signaled" class="rightLi"><i class="fas fa-door-closed">&nbspCommentaire a été signalé et est en attente de modération</i></li>
+                        <li class="signaled rightLi"><i class="fas fa-door-closed">&nbspCommentaire signalé, en attente de modération</i></li>
                         <?php }  else if ($data['signaled'] == 1 && $data['manualApprove'] == 1) {?>
-                        <li class="approve" class="rightLi"><i class="fas fa-door-closed">&nbspCommentaire approuvé malgrès son signalement</i></li>
+                        <li class="approve rightLi"><i class="fas fa-check">&nbspCommentaire approuvé suite à signalement</i></li>
                     <?php } ?>
                     </ul>
                 </div>
