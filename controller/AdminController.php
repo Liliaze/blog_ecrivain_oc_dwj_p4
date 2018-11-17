@@ -61,6 +61,10 @@ class AdminController extends PageController
         $chapter = $this->_chapterManager->getLastChapter();
         require ('view/admin/newArticle.php');
     }
+    public function commentChecking() {
+        $commentList = $this->_commentManager->getAllComments();
+        require('view/admin/commentChecking.php');
+    }
     public function modifyArticle($id)
     {
         $chapter = $this->_chapterManager->getChapter($id);

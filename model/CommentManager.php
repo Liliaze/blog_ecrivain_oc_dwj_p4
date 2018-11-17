@@ -10,6 +10,13 @@ require_once('model/Manager.php');
 
 class CommentManager extends Manager
 {
+    public function getAllComments()
+    {
+        $comments = $this->_db->query('SELECT comments.id, comments.manualApprove, chapter.numberChapter, chapter.title, comments.comment, DATE_FORMAT(comments.creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, users.login, comments.nbLike, comments.nbDislike, comments.signaled
+            FROM comments INNER JOIN users ON comments.idUsers = users.id INNER JOIN chapter ON comments.idChapter = chapter.id
+            ORDER BY comments.idChapter AND comment_date_fr DESC');
+        return $comments;
+    }
     public function getComments($chapterId)
     {
         $comments = $this->_db->prepare('SELECT comments.id, comments.idChapter, comments.comment, DATE_FORMAT(comments.creationDate, \'%d/%m/%Y à %Hh%imin%ss\') AS comment_date_fr, users.login, comments.manualApprove, comments.nbLike, comments.nbDislike, comments.signaled

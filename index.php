@@ -119,6 +119,9 @@
                                     if (isset($_GET['idComment']))
                                         $adminController->deleteComment(htmlspecialchars($_GET['idComment']));
                                     break;
+                                case 'commentCheck' :
+                                    $adminController->commentChecking();
+                                    break;
                                 default:
                                     $adminController->displayAdminPage();
                             }
