@@ -15,14 +15,19 @@ ob_start();
                 <legend>Inscription...</legend>
                 <div>
                     <label for="author">Login</label><br />
-                    <input type="text" id="loginComment" name="login" />
+                    <input type="text" id="loginRegister" name="login" />
                 </div>
                 <div>
                     <label for="mdp">Mot de passe</label><br />
-                    <input type="text" id="mdpComment" name="mdp" />
+                    <input type="text" id="mdpRegister" name="mdp" />
                 </div>
+                <div>
+                    <label for="email">Adresse e-mail</label>
+                    <input type="text" id="mailRegister" name="email"/>
+                </div>
+                <br/>
                 <div class="button">
-                    <button type="submit">Connexion</button>
+                    <button type="submit">Inscription et Connexion</button>
                 </div>
             </fieldset>
         </form>

@@ -25,14 +25,16 @@ class UserController
     }
 
     public function checkClassicUser($login, $mdp) {
-        if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
+        $mdp = htmlspecialchars($mdp);
+        $login = htmlspecialchars($login);
+        if (!empty($mdp) && !empty($login)) {
             $user = $this->_userManager->checkUser($login, $mdp);
             if ($user->rowCount() != 1) {
                 $_SESSION['warning'] = "Erreur : identifiant inconnu, merci de vérifier vos données.";
                 return false;
             }
             while ($data = $user->fetch()) {
-                if ($data['mdp'] != $mdp) {
+                if (password_verify($mdp,$data['mdp']) == false) {
                     $_SESSION['error'] = "Erreur : mauvais mot de passe";
                     return false;
                 }
@@ -52,13 +54,14 @@ class UserController
     }
 
     public function registerUser($login, $mdp) {
-        if (!empty(htmlspecialchars($mdp) && !empty(htmlspecialchars($login)))) {
-            $this->_userManager->registerUser($login, $mdp);
+        $mdp = htmlspecialchars($mdp);
+        $login = htmlspecialchars($login);
+        if (!empty($mdp) && !empty($login)) {
+            $this->_userManager->registerUser($login, password_hash($mdp, PASSWORD_ARGON2I));
             $this->checkClassicUser($login, $mdp);
             header('location: index.php?action=login');
         }
         else
             $_SESSION['warning'] = "Merci de vérifier les données saisies";
     }
-    //ajout user / delete user.... / page profil
 }
