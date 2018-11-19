@@ -34,7 +34,7 @@ class UserController
                 return false;
             }
             while ($data = $user->fetch()) {
-                if (password_verify($mdp,$data['mdp']) == false) {
+                if (md5($mdp) != $data['mdp'])) {
                     $_SESSION['error'] = "Erreur : mauvais mot de passe";
                     return false;
                 }
@@ -60,7 +60,7 @@ class UserController
         if (!empty($mdp) && !empty($login) && !empty($email)) {
             $singleUser = $this->_userManager->singleUser($login);
             if ($singleUser->rowCount() == 0) {
-                $this->_userManager->registerUser($login, password_hash($mdp, PASSWORD_ARGON2I), $email);
+                $this->_userManager->registerUser($login, md5($mdp), $email);
                 $this->checkClassicUser($login, $mdp);
                 header('location: index.php?action=login');
             }
