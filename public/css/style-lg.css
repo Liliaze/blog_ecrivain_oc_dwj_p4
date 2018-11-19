@@ -47,6 +47,11 @@ footer {
 #home {
     text-align: center;
 }
+#homeTitle {
+    color: darkslategray;
+    font-size: 4em;
+    margin: 20px auto 20px auto;
+}
 #authorImg {
     width :30%;
 }

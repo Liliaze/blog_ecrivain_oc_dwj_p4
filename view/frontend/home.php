@@ -7,13 +7,14 @@
  */
 ob_start();
 ?>
-    <div id="home">
-        <h1>BILLET SIMPLE POUR L'ALASKA</h1>
-        <img src="public/image/cover.jpg">
-        <h2>Extrait du dernier épisode :</h2>
-        <div >
+    <div class="col-lg-12" id="home">
+        <h1 class="col-lg-12" id="homeTitle">"BILLET SIMPLE POUR L'ALASKA"</h1>
+        <img class="col-lg-8 col-lg-offset-2" src="public/image/alaska.jpg">
+        <h2 class="col-lg-12">DECOUVREZ LE NOUVEAU ROMAN DE JEAN FORTEROCHE</h2>
+        <h3 class="col-lg-12">Publié épisode par épisode, voici le dernier chapitre publié :</h3>
+        <div class="col-lg-6 col-lg-offset-3" >
           <?php while ($data= $this->_lastChapter->fetch()) {?>
-            <div class="extractChapter">
+            <div class="extractChapter ">
                 <h3>
                     <span class="extractTitle"><?= "Episode ".$data['numberChapter']. " : " . $data['title'] ?></span>
                     </br>

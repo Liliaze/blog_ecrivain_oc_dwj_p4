@@ -6,11 +6,13 @@
  * Time: 12:43
  */
 ob_start(); ?>
-    <h1>UN BILLET SIMPLE POUR L'ALASKA</h1>
+    <h1 class="col-lg-12" id="homeTitle">"BILLET SIMPLE POUR L'ALASKA"</h1>
     <h4><a href="index.php?action=chapter&amp;idChapter=1">"""Lien vers le premier chapitre""" </a></h4>
     <h2>Liste des épisodes.</h2>
     <h3>Découvrez les derniers épisodes du plus récent au plus ancien :</h3>
-    <?php while ($data= $this->_chapterList->fetch()) {
+<div class="col-lg-6 col-lg-offset-3">
+
+<?php while ($data= $this->_chapterList->fetch()) {
         if ($data['published'] == 1) { ?>
             <div class="extractChapter">
                 <h4>
@@ -31,6 +33,9 @@ ob_start(); ?>
     <?php
         }
     }
+    ?>
+</div>
+<?php
 $this->_chapterList->closeCursor();
 $content = ob_get_clean();
 require('./view/frontend/template.php'); ?>
