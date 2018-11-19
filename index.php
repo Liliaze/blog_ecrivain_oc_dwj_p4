@@ -39,8 +39,8 @@
                     $pageController->displayLegalPage();
                     break;
                 case 'register':
-                    if (isset($_POST['login']) && isset($_POST['mdp']))
-                        $userController->registerUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                    if (isset($_POST['login']) && isset($_POST['mdp']) && isset($_POST['email']))
+                        $userController->registerUser(htmlspecialchars(trim($_POST['login'])), htmlspecialchars(trim($_POST['mdp'])), htmlspecialchars(trim($_POST['email'])));
                     else
                         $pageController->displayRegisterPage();
                     break;
@@ -49,12 +49,12 @@
                     break;
                 case 'validUserA' :
                     if (isset($_POST['login']) && isset($_POST['mdp']))
-                        $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                        $userController->checkClassicUser(htmlspecialchars(trim($_POST['login'])), htmlspecialchars(trim($_POST['mdp'])));
                     $adminController->displayAdminPage();
                     break;
                 case 'validUserB' :
                     if (isset($_POST['login']) && isset($_POST['mdp']))
-                        $userController->checkClassicUser(htmlspecialchars($_POST['login']), htmlspecialchars($_POST['mdp']));
+                        $userController->checkClassicUser(htmlspecialchars(trim($_POST['login'])), htmlspecialchars(trim($_POST['mdp'])));
                     $pageController->displayLoginPage();
                     break;
                 case 'logout' :
@@ -62,7 +62,7 @@
                     break;
                 case 'addComment' :
                     if (isset($_GET['idChapter']))
-                        $pageController->addComment(htmlspecialchars($_GET['idChapter']), $_POST['comment']);
+                        $pageController->addComment(htmlspecialchars($_GET['idChapter']), trim($_POST['comment']));
                     break;
                 case 'likeComment' :
                     if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0)

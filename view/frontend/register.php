@@ -15,15 +15,15 @@ ob_start();
                 <legend>Inscription...</legend>
                 <div>
                     <label for="author">Login</label><br />
-                    <input type="text" id="loginRegister" name="login" />
+                    <input type="text" id="loginRegister" name="login" value="<?=$login?>"/>
                 </div>
                 <div>
                     <label for="mdp">Mot de passe</label><br />
-                    <input type="text" id="mdpRegister" name="mdp" />
+                    <input type="text" id="mdpRegister" name="mdp" value="<?=$mdp?>"//>
                 </div>
                 <div>
                     <label for="email">Adresse e-mail</label>
-                    <input type="text" id="mailRegister" name="email"/>
+                    <input type="text" id="mailRegister" name="email" value="<?=$email?>"//>
                 </div>
                 <br/>
                 <div class="button">

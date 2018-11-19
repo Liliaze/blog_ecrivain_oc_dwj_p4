@@ -111,6 +111,11 @@ class PageController {
         require('view/frontend/login.php');
     }
     public function displayRegisterPage() {
+        if (!isset($login) && !isset($mdp) && !isset($email)){
+            $login="";
+            $mdp="";
+            $email="";
+        }
         require('view/frontend/register.php');
     }
     public function displayLegalPage() {

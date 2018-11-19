@@ -29,7 +29,7 @@ class UserController
         $login = htmlspecialchars($login);
         if (!empty($mdp) && !empty($login)) {
             $user = $this->_userManager->checkUser($login, $mdp);
-            if ($user->rowCount() != 1) {
+            if ($user->rowCount() < 1) {
                 $_SESSION['warning'] = "Erreur : identifiant inconnu, merci de vérifier vos données.";
                 return false;
             }
@@ -53,13 +53,21 @@ class UserController
         }
     }
 
-    public function registerUser($login, $mdp) {
+    public function registerUser($login, $mdp, $email) {
         $mdp = htmlspecialchars($mdp);
         $login = htmlspecialchars($login);
-        if (!empty($mdp) && !empty($login)) {
-            $this->_userManager->registerUser($login, password_hash($mdp, PASSWORD_ARGON2I));
-            $this->checkClassicUser($login, $mdp);
-            header('location: index.php?action=login');
+        $email = htmlspecialchars($email);
+        if (!empty($mdp) && !empty($login) && !empty($email)) {
+            $singleUser = $this->_userManager->singleUser($login);
+            if ($singleUser->rowCount() == 0) {
+                $this->_userManager->registerUser($login, password_hash($mdp, PASSWORD_ARGON2I), $email);
+                $this->checkClassicUser($login, $mdp);
+                header('location: index.php?action=login');
+            }
+            else {
+                $_SESSION['warning'] = "Ce pseudo existe déjà, merci d'en choisir un autre";
+                require('view/frontend/register.php');
+            }
         }
         else
             $_SESSION['warning'] = "Merci de vérifier les données saisies";
