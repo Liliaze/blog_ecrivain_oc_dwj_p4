@@ -34,7 +34,7 @@ class UserController
                 return false;
             }
             while ($data = $user->fetch()) {
-                if (md5($mdp) != $data['mdp'])) {
+                if (md5($mdp) != $data['mdp']) {
                     $_SESSION['error'] = "Erreur : mauvais mot de passe";
                     return false;
                 }
