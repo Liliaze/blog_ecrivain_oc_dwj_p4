@@ -19,11 +19,11 @@ ob_start();
                 </div>
                 <div>
                     <label for="mdp">Mot de passe</label><br />
-                    <input type="text" id="mdpRegister" name="mdp" value="<?=$mdp?>"//>
+                    <input type="password" id="mdpRegister" name="mdp" value="<?=$mdp?>"//>
                 </div>
                 <div>
                     <label for="email">Adresse e-mail</label>
-                    <input type="text" id="mailRegister" name="email" value="<?=$email?>"//>
+                    <input type="email" id="mailRegister" name="email" value="<?=$email?>"//>
                 </div>
                 <br/>
                 <div class="button">

@@ -17,7 +17,7 @@ ob_start(); ?>
         </h2>
         <p><?= nl2br($data['content']) ?> <br/></p>
     </div>
-    <?php if (isset($_SESSION['login']) && $_SESSION['login'] != '') { ?>
+    <?php if (isset($_SESSION['login']) && $_SESSION['login'] != '' || !isset($_SESSION['login'])) { ?>
         <div class="postComment col-lg-12">
             <form action="index.php?action=addComment&amp;idChapter=<?= $data['id'] ?>" method="post">
                 <fieldset id="fieldsetLoginForm">
@@ -57,8 +57,8 @@ ob_start(); ?>
                         <?= nl2br(htmlspecialchars($data['comment'])) ?> <br />
                     </p>
                     <ul class="menuComment bottom">
-                        <li class="like" class="leftLi"><?= $data['nbLike'] ?></li>
-                        <li class="likeButton"><a href="index.php?action=likeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="far fa-thumbs-up"></i></a></li>
+                        <li class="like leftLi"><?= $data['nbLike'] ?></li>
+                        <li class="myLikeButton"><a href="index.php?action=likeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="far fa-thumbs-up"></i></a></li>
                         <li class="dislike"><?= $data['nbDislike'] ?></li>
                         <li class="dislikeButton"><a href="index.php?action=unlikeComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id']?> "><i class="far fa-thumbs-down"></i></a></li>
                         <?php if ($data['signaled'] == 0) {?>

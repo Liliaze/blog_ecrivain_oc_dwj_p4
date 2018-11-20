@@ -32,9 +32,6 @@
                 case 'author' :
                     $pageController->displayAuthorPage();
                     break;
-                case 'contact' :
-                    $pageController->displayContactPage();
-                    break;
                 case 'legal' :
                     $pageController->displayLegalPage();
                     break;

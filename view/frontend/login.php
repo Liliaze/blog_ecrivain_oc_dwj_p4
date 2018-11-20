@@ -6,7 +6,7 @@
  * Time: 21:01
  */
 ob_start();
-if (isset($_SESSION['login']) && $_SESSION['login'] == '') {
+if (isset($_SESSION['login']) && $_SESSION['login'] == '' || !isset($_SESSION['login'])) {
     ?>
     <h1>Poster des commentaires ?</h1>
     <h2>Identifiez-vous</h2>

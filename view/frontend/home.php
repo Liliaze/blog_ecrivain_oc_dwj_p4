@@ -8,11 +8,11 @@
 ob_start();
 ?>
     <div class="col-lg-12" id="home">
-        <h1 class="col-lg-12" id="homeTitle">"BILLET SIMPLE POUR L'ALASKA"</h1>
-        <img class="col-lg-8 col-lg-offset-2" src="public/image/alaska.jpg">
-        <h2 class="col-lg-12">DECOUVREZ LE NOUVEAU ROMAN DE JEAN FORTEROCHE</h2>
-        <h3 class="col-lg-12">Publié épisode par épisode, voici le dernier chapitre publié :</h3>
-        <div class="col-lg-6 col-lg-offset-3" >
+        <h1 class="col-lg-12 col-md-12 col-xs-12" id="homeTitle">"BILLET SIMPLE POUR L'ALASKA"</h1>
+        <img class="col-lg-8 col-lg-offset-2 col-lg-8 col-lg-offset-2 col-md-offset-2 col-md-8 col-xs-12" src="public/image/alaska.jpg">
+        <h2 class="col-lg-12 col-md-12 col-xs-12">DECOUVREZ LE NOUVEAU ROMAN DE JEAN FORTEROCHE</h2>
+        <h3 class="col-lg-12 col-md-12 col-xs-12">Publié épisode par épisode, voici le dernier chapitre publié :</h3>
+        <div class="col-lg-6 col-lg-offset-3 col-md-12 col-xs-12" >
           <?php while ($data= $this->_lastChapter->fetch()) {?>
             <div class="extractChapter ">
                 <h3>
@@ -21,7 +21,7 @@ ob_start();
                     <span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
                 </h3>
                 <p>
-                    <?= substr(nl2br($data['content']), 0, 255);  ?>
+                    <?= substr(nl2br($data['content']), 0, 500);  ?>
                     <br/>
                 </p>
                 <p class="readMore">

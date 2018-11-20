@@ -35,6 +35,18 @@ footer {
     width: 90vw;
 }
 
+#contact1, #contact2 {
+    font-size: 0.9em;
+    padding: 5px;
+    color: midnightblue;
+    border: 1px dashed lightskyblue;
+}
+#linkMenu   {
+    padding: 5px;
+    font-size: 1.1em;
+    font-style: italic;
+ }
+
 #content{
     text-align: center;
     width: 90vw;
@@ -51,6 +63,10 @@ footer {
     color: darkslategray;
     font-size: 4em;
     margin: 20px auto 20px auto;
+}
+#authorDiv {
+    width: 90%;
+    margin: auto;
 }
 #authorImg {
     width :30%;
@@ -146,7 +162,7 @@ ul#menu a i {
     background-color: white;
     color: firebrick;
 }
-.likeButton{
+.myLikeButton{
     background-color: lightgreen;
 }
 .dislikeButton {
@@ -161,7 +177,7 @@ ul#menu a i {
 .signaled{
     background-color: sandybrown;
 }
-.likeButton:hover {
+.myLikeButton:hover {
     background-color: mediumspringgreen;
     color: black;
 }
@@ -173,7 +189,7 @@ ul#menu a i {
       background-color: orangered;
       color: black;
   }
-.likeButton i, .dislikeButton i, .signaledButton i{
+.myLikeButton i, .dislikeButton i, .signaledButton i{
     color: black;
 }
 .rightLi {
