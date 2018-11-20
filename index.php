@@ -104,10 +104,6 @@
                                     if (isset($_GET['idChapter']))
                                         $adminController->deleteChapter(htmlspecialchars($_GET['idChapter']));
                                     break;
-                                case 'modifyComment' :
-                                    if (isset($_GET['idComment']))
-                                        $adminController->modifyComment(htmlspecialchars($_GET['idComment']));
-                                    break;
                                 case 'manualApprove' :
                                     if (isset($_GET['idComment']))
                                         $adminController->approveComment(htmlspecialchars($_GET['idComment']));

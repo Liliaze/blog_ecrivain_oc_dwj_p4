@@ -24,7 +24,7 @@ class AdminController extends PageController
     public function createNewArticle() {
         $title = "Nouvel article";
         $articleContent = "Rédiger ici le contenu du nouvel épisode! Pensez à sauvegarder régulièrement. Enjoy !";
-        $number = 42;
+        $number = -1;
         $this->_chapterManager->newChapter($title, $number, $articleContent);
         $chapter = $this->_chapterManager->getLastChapter();
         require('view/admin/newArticle.php');
@@ -50,7 +50,7 @@ class AdminController extends PageController
             case 'chapter':
                 $this->_chapterManager->publishChapter($id);
                 $_SESSION['success'] = "Modifications sauvegardées et article publié, le voici :";
-                header('location: index.php?action=admin&idChapter='.$id);
+                header('location: index.php?action=chapter&idChapter='.$id);
                 return;
             case 'admin':
                 header('location: index.php?action=admin');
@@ -58,7 +58,7 @@ class AdminController extends PageController
             default:
                 $_SESSION['error'] = "une erreur est survenue, action non reconnue";
         }
-        $chapter = $this->_chapterManager->getLastChapter();
+        $chapter = $this->_chapterManager->getChapter($id);
         require ('view/admin/newArticle.php');
     }
     public function commentChecking() {

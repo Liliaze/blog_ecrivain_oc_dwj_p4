@@ -26,7 +26,7 @@ ob_start();
                         fois et détesté <?= htmlspecialchars($data['nbDislike']) ?> fois.</span>
                 </div>
                 <div class="buttonModify">
-                    <a class="modify" href="index.php?action=admin&amp;ac=modifyComment&amp;idComment=<?= htmlspecialchars($data['id']) ?>">modifier</a>
+                    <!-- <a class="modify" href="index.php?action=admin&amp;ac=modifyComment&amp;idComment=<?= htmlspecialchars($data['id']) ?>">modifier</a>-->
                     <?php if($data['manualApprove'] == 0) {?>
                     <a href="index.php?action=admin&amp;ac=manualApprove&amp;idComment=<?= htmlspecialchars($data['id']) ?>">approuver</a>
                     <?php } ?>
