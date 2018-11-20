@@ -22,7 +22,7 @@ ob_start(); ?>
                 </h4>
                 <br />
                 <p>
-                    <?= substr(nl2br($data['content']), 0, 500);  ?>
+                    <?= substr(nl2br($data['content']), 0, 400);  ?>
                     <br/>
                 </p>
                 <p class="readMore">

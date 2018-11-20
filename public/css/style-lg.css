@@ -71,6 +71,11 @@ footer {
 #authorImg {
     width :30%;
 }
+.linkOtherChapter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .extractChapter {
     padding: 15px;
     margin: 15px;
@@ -226,8 +231,9 @@ input, textarea {
     border: 1px solid #999;
 }
 button {
-    margin: 5px;
+    margin: 10px;
     padding: 5px;
+    color: darkslategray;
 }
 
 input:focus, textarea:focus {

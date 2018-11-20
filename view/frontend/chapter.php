@@ -15,6 +15,16 @@ ob_start(); ?>
             </br><span class="extractTitle"><?= htmlspecialchars($data['title']) ?></span>
             </br><span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
         </h2>
+
+        <div class="linkOtherChapter">
+            <?php if ($this->_previousIdChapter != null) { ?>
+                <a href="index.php?action=chapter&amp;idChapter=<?= $this->_previousIdChapter ?>"><button><i class="fas fa-angle-double-left"></i>&nbspCHAPITRE&nbspPRECEDENT</button></a>
+            <?php } ?>
+            <?php if ($this->_nextIdChapter != null) { ?>
+                <a href="index.php?action=chapter&amp;idChapter=<?= $this->_nextIdChapter?>"><button><i class="fas fa-angle-double-right"></i>&nbspCHAPITRE&nbspSUIVANT</button></a>
+            <?php } ?>
+        </div>
+
         <p><?= nl2br($data['content']) ?> <br/></p>
     </div>
     <?php if (isset($_SESSION['login']) && $_SESSION['login'] != '' || !isset($_SESSION['login'])) { ?>

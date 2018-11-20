@@ -15,6 +15,8 @@ class PageController {
     protected $_chapterManager;
     protected $_commentManager;
     protected $_oneChapter;
+    protected $_previousIdChapter;
+    protected $_nextIdChapter;
     protected $_lastChapter;
     protected $_chapterList;
     protected $_commentsSignaledList;
@@ -40,8 +42,43 @@ class PageController {
     public function displayChapter($idChapter)
     {
         $this->setOneChapter($idChapter);
+        $this->setPreviousAndNextIdChapter($idChapter);
         $this->setCommentsChapterList($idChapter);
         require('view/frontend/chapter.php');
+    }
+    public function setPreviousAndNextIdChapter($idChapter) {
+        $list = $this->_chapterManager->getChapterList();
+        $currentChapter = $this->_chapterManager->getChapter($idChapter);
+        while ($data = $currentChapter->fetch()) {
+            if (intval($data['numberChapter']) > 0) {
+                $pdoID = $this->_chapterManager->getIdByNumberChapter($data['numberChapter'] - 1);
+                while ($dataID = $pdoID->fetch()) {
+                    $this->_previousIdChapter = $dataID['id'];
+                    break;
+                }
+                $pdoID->closeCursor();
+            }
+            else {
+                $this->_previousIdChapter = null;
+            }
+            while ($dataList = $list->fetch()) {
+                if (intval($data['numberChapter']) < intval($dataList['numberChapter'])) {
+                    $pdoID = $this->_chapterManager->getIdByNumberChapter($data['numberChapter'] + 1);
+                    while ($dataID = $pdoID->fetch()) {
+                        $this->_nextIdChapter = $dataID['id'];
+                        break;
+                    }
+                    $pdoID->closeCursor();
+                    break;
+                } else {
+                    $this->_nextIdChapter = null;
+                    break;
+                }
+            }
+            $list->closeCursor();
+            break;
+        }
+        $currentChapter->closeCursor();
     }
     public function displayChapterList()
     {
