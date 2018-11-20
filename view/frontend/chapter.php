@@ -27,7 +27,7 @@ ob_start(); ?>
 
         <p><?= nl2br($data['content']) ?> <br/></p>
     </div>
-    <?php if (isset($_SESSION['login']) && $_SESSION['login'] != '' || !isset($_SESSION['login'])) { ?>
+    <?php if (isset($_SESSION['login']) && $_SESSION['login'] != '') { ?>
         <div class="postComment col-lg-12">
             <form action="index.php?action=addComment&amp;idChapter=<?= $data['id'] ?>" method="post">
                 <fieldset id="fieldsetLoginForm">
