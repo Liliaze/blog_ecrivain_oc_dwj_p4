@@ -6,7 +6,7 @@
  * Time: 14:16
  */
 
-require_once('Handler\utils.php');
+require_once('handler/utils.php');
 require_once('model/ChapterManager.php');
 require_once('model/CommentManager.php');
 

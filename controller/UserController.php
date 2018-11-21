@@ -6,7 +6,7 @@
  * Time: 20:58
  */
 
-require_once('Handler\utils.php');
+require_once('handler/utils.php');
 require_once('model/UserManager.php');
 
 class UserController
