@@ -6,14 +6,20 @@
  * Time: 20:58
  */
 
+require_once('Handler\utils.php');
 require_once('model/UserManager.php');
 
 class UserController
 {
+    use Handler\utils\CleanArgument, Handler\utils\IsConnected;
+
     private $_userManager;
 
     public function __construct() {
         $this->_userManager = new UserManager();
+    }
+    public function displayLoginPage() {
+        require('view/frontend/login.php');
     }
 
     public function logout() {
@@ -53,11 +59,11 @@ class UserController
         }
     }
 
-    public function registerUser($login, $mdp, $email) {
-        $mdp = htmlspecialchars($mdp);
-        $login = htmlspecialchars($login);
-        $email = htmlspecialchars($email);
-        if (!empty($mdp) && !empty($login) && !empty($email)) {
+    public function registerUser() {
+        $mdp = $this->getCleanArgument('mdp');
+        $login = $this->getCleanArgument('login');
+        $email = $this->getCleanArgument('email');
+        if ($mdp && $login && $email) {
             $singleUser = $this->_userManager->singleUser($login);
             if ($singleUser->rowCount() == 0) {
                 $this->_userManager->registerUser($login, md5($mdp), $email);
@@ -66,10 +72,19 @@ class UserController
             }
             else {
                 $_SESSION['warning'] = "Ce pseudo existe déjà, merci d'en choisir un autre";
-                require('view/frontend/register.php');
             }
         }
         else
             $_SESSION['warning'] = "Merci de vérifier les données saisies";
+        require('view/frontend/register.php');
+    }
+
+    public function displayRegisterPage() {
+        if (!isset($login) && !isset($mdp) && !isset($email)){
+            $login="";
+            $mdp="";
+            $email="";
+        }
+        require('view/frontend/register.php');
     }
 }

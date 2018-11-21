@@ -6,7 +6,7 @@
  * Time: 21:01
  */
 ob_start();
-if (isset($_SESSION['login']) && $_SESSION['login'] == '' || !isset($_SESSION['login'])) {
+if (!$this->isConnected()) {
     ?>
     <h1>Poster des commentaires ?</h1>
     <h2>Identifiez-vous</h2>
@@ -36,7 +36,7 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == '' || !isset($_SESSION['l
 }
 else { ?>
         <div id="welcomeUser">
-            <?php if (isset($_SESSION['login'])) {?>
+            <?php if ($this->isConnected()) {?>
         <p>Bonjour, <?= $_SESSION['login'] ?> vous pouvez dès à présent poster des commentaires</p>
 
         <p>Ce n'est pas vous ? Vous pouvez vous déconnecter :</p>

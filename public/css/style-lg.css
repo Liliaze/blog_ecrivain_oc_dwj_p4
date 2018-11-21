@@ -27,7 +27,7 @@ header {
     position: fixed;
     top:0;
     height: 80px;
-    background-color: darkslategray;
+    /*background-color: darkslategray;*/
     z-index: 10;
 }
 footer {

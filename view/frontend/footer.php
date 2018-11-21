@@ -12,7 +12,7 @@
             <a href="index.php?action=login">Connexion au site</a><br/>
             <a href="index.php?action=legal">Mentions Légales</a><br/>
             <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) { ?>
-                <a href="index.php?action=admin&amp;ac=log">Administration du site</a>
+                <a href="index.php?action=admin_home">Administration du site</a>
             <?php } ?>
         </div>
         <div id="contact2" class="col-lg-4 col-md-4 col-xs-12">

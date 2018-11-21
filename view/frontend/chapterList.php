@@ -7,7 +7,7 @@
  */
 ob_start(); ?>
     <h1 class="col-lg-12" id="homeTitle">"BILLET SIMPLE POUR L'ALASKA"</h1>
-    <h4><a href="index.php?action=chapter&amp;idChapter=1">"""Lien vers le premier chapitre""" </a></h4>
+    <h4><a href="index.php?action=firstChapter">"""Lien vers le premier chapitre""" </a></h4>
     <h2>Liste des épisodes.</h2>
     <h3>Découvrez les derniers épisodes du plus récent au plus ancien :</h3>
 <div class="col-lg-6 col-lg-offset-3">

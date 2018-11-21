@@ -5,6 +5,7 @@
  * Date: 06/11/2018
  * Time: 21:01
  */
+$this->isAdmin();
 ob_start();
 ?>
     <h1 class="col-lg-12">Vous êtes sur la page d'administration du site !</h1>
@@ -28,8 +29,8 @@ ob_start();
                 <div class="buttonModify">
                      <!--<a class="modify"
                        href="index.php?action=admin&amp;ac=modifyComment&amp;idComment=<?= htmlspecialchars($data['id']) ?>">modifier</a> -->
-                    <a href="index.php?action=admin&amp;ac=manualApprove&amp;idComment=<?= htmlspecialchars($data['id']) ?>">approuver</a>
-                    <a href="index.php?action=admin&amp;ac=deleteComment&amp;idComment=<?= htmlspecialchars($data['id']) ?>"
+                    <a href="index.php?action=admin_manualApprove&amp;idComment=<?= htmlspecialchars($data['id']) ?>">approuver</a>
+                    <a href="index.php?action=admin_deleteComment&amp;idComment=<?= htmlspecialchars($data['id']) ?>"
                        onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')">supprimer</a>
                 </div>
                 </br>
@@ -38,14 +39,14 @@ ob_start();
     }
         $this->_commentsSignaledList->closeCursor();
 ?>
-    <div class=" figureAdmin col-lg-12">
-        <a href="index.php?action=admin&amp;ac=new" >
+    <div class="figureAdmin col-lg-12">
+        <a href="index.php?action=admin_new" >
             <figure >
                 <img id="plume" src="public/image/plume_ecrivian.png" alt="plume d'écrivain à l'encre">
                 <figcaption>Rédiger un nouvel épisode</figcaption>
             </figure>
         </a>
-        <a href="index.php?action=admin&amp;ac=commentCheck">
+        <a href="index.php?action=admin_commentCheck">
             <figure >
                 <img id="commentChecking" src="public/image/commentaire.png" alt="symbole discussion entre 2 personnes">
                 <figcaption>Gérer les commentaires</figcaption>
@@ -61,13 +62,13 @@ ob_start();
                 <span class="adminDateChapter"></br>créé le <?= $data['creation_date_fr']?>, mis à jour le <?= $data['update_date_fr'] ?></span>
             </div>
             <div class="buttonModify">
-                <a class="modify" href="index.php?action=admin&amp;ac=modifyChapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>">modifier</a>
+                <a class="modify" href="index.php?action=admin_modifyChapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>">modifier</a>
                 <?php if ($data['published'] == 0) {?>
-                <a href="index.php?action=admin&amp;ac=publish&amp;idChapter=<?=htmlspecialchars($data['id'])?>">publier</a>
+                <a href="index.php?action=admin_publish&amp;idChapter=<?=htmlspecialchars($data['id'])?>">publier</a>
                 <?php } else if ($data['published'] == 1) {?>
-                <a href="index.php?action=admin&amp;ac=unPublish&amp;idChapter=<?=htmlspecialchars($data['id'])?>">dépublier</a>
+                <a href="index.php?action=admin_unPublish&amp;idChapter=<?=htmlspecialchars($data['id'])?>">dépublier</a>
                 <?php }?>
-                <a href="index.php?action=admin&amp;ac=deleteChapter&amp;idChapter=<?=htmlspecialchars($data['id']) ?>" onclick="return confirm('Etes vous sûre de vouloir supprimer ce chapitre ?')">supprimer</a>
+                <a href="index.php?action=admin_deleteChapter&amp;idChapter=<?=htmlspecialchars($data['id']) ?>" onclick="return confirm('Etes vous sûre de vouloir supprimer ce chapitre ?')">supprimer</a>
             </div>
             </br>
         </div>

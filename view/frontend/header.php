@@ -10,7 +10,7 @@
         <li class="button_right col-lg-offset-7 col-md-offset-0 col-lg-1 col-md-2 col-xs-2"><a href="index.php?action=logout"><i class="fas fa-unlock-alt">Déconnexion</i></a></li>
         <?php } ?>
         <?php if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {?>
-        <li class="button_right col-lg-1 col-md-2 col-xs-2"><a href="index.php?action=admin"><i class="fas fa-hammer">&nbspAdmin</i></a></li>
+        <li class="button_right col-lg-1 col-md-2 col-xs-2"><a href="index.php?action=admin_home"><i class="fas fa-hammer">&nbspAdmin</i></a></li>
         <?php } ?>
     </ul>
 </header>

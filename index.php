@@ -9,40 +9,41 @@
     try {
         session_start();
 
-        require("./controller/PageController.php");
+        require("./controller/BlogController.php");
+        require("./controller/ChapterController.php");
         require("./controller/AdminController.php");
         require("./controller/UserController.php");
 
-        $pageController = new PageController();
+        $blogController = new BlogController();
+        $chapterController = new ChapterController();
         $adminController = new AdminController();
         $userController = new UserController();
 
         if (isset($_GET['action'])) {
             switch ($_GET['action']) {
                 case 'home' :
-                    $pageController->sayWelcome();
+                    $chapterController->home();
                     break;
                 case 'chapter' :
-                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0)
-                        $pageController->displayChapter($_GET['idChapter']);
+                    $chapterController->displayChapter();
+                    break;
+                case 'firstChapter' :
+                    $chapterController->displayFirstChapter();
                     break;
                 case 'chapterList' :
-                    $pageController->displayChapterList();
+                    $chapterController->displayChapterList();
                     break;
                 case 'author' :
-                    $pageController->displayAuthorPage();
+                    $blogController->displayAuthorPage();
                     break;
                 case 'legal' :
-                    $pageController->displayLegalPage();
+                    $blogController->displayLegalPage();
                     break;
                 case 'register':
-                    if (isset($_POST['login']) && isset($_POST['mdp']) && isset($_POST['email']))
-                        $userController->registerUser(htmlspecialchars(trim($_POST['login'])), htmlspecialchars(trim($_POST['mdp'])), htmlspecialchars(trim($_POST['email'])));
-                    else
-                        $pageController->displayRegisterPage();
+                    $userController->registerUser();
                     break;
                 case 'login' :
-                    $pageController->displayLoginPage();
+                    $userController->displayLoginPage();
                     break;
                 case 'validUserA' :
                     if (isset($_POST['login']) && isset($_POST['mdp']))
@@ -52,84 +53,66 @@
                 case 'validUserB' :
                     if (isset($_POST['login']) && isset($_POST['mdp']))
                         $userController->checkClassicUser(htmlspecialchars(trim($_POST['login'])), htmlspecialchars(trim($_POST['mdp'])));
-                    $pageController->displayLoginPage();
+                    $userController->displayLoginPage();
                     break;
                 case 'logout' :
                     $userController->logout();
                     break;
                 case 'addComment' :
-                    if (isset($_GET['idChapter']))
-                        $pageController->addComment(htmlspecialchars($_GET['idChapter']), trim($_POST['comment']));
+                    $chapterController->addComment();
                     break;
                 case 'likeComment' :
-                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0)
-                        $pageController->likeComment($_GET['idChapter'], $_GET['idComment']);
+                    $chapterController->likeComment();
                     break;
                 case 'unlikeComment' :
-                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0)
-                        $pageController->dislikeComment($_GET['idChapter'], $_GET['idComment']);
+                    $chapterController->dislikeComment();
                     break;
                 case 'signaledComment' :
-                    if (isset($_GET['idChapter']) && $_GET['idChapter'] > 0 && isset($_GET['idComment']) && $_GET['idComment'] > 0)
-                        $pageController->signaledComment($_GET['idChapter'], $_GET['idComment']);
+                    $chapterController->signaledComment($_GET['idChapter'], $_GET['idComment']);
                     break;
-                case 'admin' :
-                    if ($adminController->checkIsAdmin()) {
-                        if (isset($_GET['ac'])) {
-                            switch ($_GET['ac']) {
-                                case 'log' :
-                                    $adminController->displayAdminPage();
-                                    break;
-                                case 'new' :
-                                    $adminController->createNewArticle();
-                                    break;
-                                case 'save' :
-                                    if (isset($_POST['save']) && htmlspecialchars(isset($_GET['idChapter']))
-                                        && isset($_POST['numberArticle']) && isset($_POST['titleArticle']) && isset($_POST['textArticle']))
-                                        $adminController->saveArticle($_POST['save'], htmlspecialchars($_GET['idChapter']), $_POST['numberArticle'], $_POST['titleArticle'], $_POST['textArticle']);
-                                    break;
-                                case 'modifyChapter' :
-                                    if (isset($_GET['idChapter']))
-                                        $adminController->modifyArticle(htmlspecialchars($_GET['idChapter']));
-                                    break;
-                                case 'publish' :
-                                    if (isset($_GET['idChapter']))
-                                        $adminController->publish(htmlspecialchars($_GET['idChapter']));
-                                    break;
-                                case 'unPublish' :
-                                    if (isset($_GET['idChapter']))
-                                        $adminController->unPublish(htmlspecialchars($_GET['idChapter']));
-                                    break;
-                                case 'deleteChapter' :
-                                    if (isset($_GET['idChapter']))
-                                        $adminController->deleteChapter(htmlspecialchars($_GET['idChapter']));
-                                    break;
-                                case 'manualApprove' :
-                                    if (isset($_GET['idComment']))
-                                        $adminController->approveComment(htmlspecialchars($_GET['idComment']));
-                                    break;
-                                case 'deleteComment' :
-                                    if (isset($_GET['idComment']))
-                                        $adminController->deleteComment(htmlspecialchars($_GET['idComment']));
-                                    break;
-                                case 'commentCheck' :
-                                    $adminController->commentChecking();
-                                    break;
-                                default:
-                                    $adminController->displayAdminPage();
-                            }
-                        }
-                        else
-                                $adminController->displayAdminPage();
-                    }
+                case 'admin_home' :
+                    $adminController->displayAdminPage();
+                    break;
+                case 'admin_new' :
+                    $adminController->createNewArticle();
+                    break;
+                case 'admin_save' :
+                    $adminController->saveArticle();
+                    break;
+                case 'admin_modifyChapter' :
+                        $adminController->modifyArticle();
+                    break;
+                case 'admin_publish' :
+                        $adminController->publish();
+                    break;
+                case 'admin_unPublish' :
+                        $adminController->unPublish();
+                    break;
+                case 'admin_deleteChapter' :
+                        $adminController->deleteChapter();
+                    break;
+                case 'admin_manualApprove' :
+                        $adminController->approveComment();
+                    break;
+                case 'admin_deleteComment' :
+                        $adminController->deleteComment();
+                    break;
+                case 'admin_commentCheck' :
+                    $adminController->commentChecking();
+                    break;
+                case 'admin_manualApproveList' :
+                        $adminController->approveCommentList();
+                    break;
+                case 'admin_deleteCommentList' :
+                        $adminController->deleteCommentList();
                     break;
                 default:
-                    $_SESSION['error'] = "action : " . $_GET['action'] . " non reconnu, retour accueil - penser à suppriemr ce message de debug";
-                    $pageController->sayWelcome();
+                    $chapterController->home();
+                    break;
             }
         }
         else {
-            $pageController->sayWelcome();
+            $chapterController->home();
         }
     }
     catch(Exception $e) {

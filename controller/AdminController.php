@@ -6,22 +6,28 @@
  * Time: 22:47
  */
 
-class AdminController extends PageController
+class AdminController extends ChapterController
 {
-    public function checkIsAdmin() {
-        if ($_SESSION['admin'] == 1)
+    protected $_commentsSignaledList;
+
+    private function isAdmin () {
+        if (isset($_SESSION['admin']) && $_SESSION['admin'] == 1) {
             return true;
-        else if ($_SESSION['admin'] == 0){
-            header( 'location: index.php?action=home');
-            exit();
         }
+        header('location: index.php?action=home');
+        exit();
+    }
+    private function updateCommentSignaledList() {
+        $this->_commentsSignaledList = $this->_commentManager->getSignaledList();
     }
     public function displayAdminPage() {
-            $this->updateChapterList();
-            $this->updateCommentSignaledList();
-            require('view/admin/admin.php');
+        $this->isAdmin();
+        $this->updateChapterList();
+        $this->updateCommentSignaledList();
+        require('view/admin/admin.php');
     }
     public function createNewArticle() {
+        $this->isAdmin();
         $title = "Nouvel article";
         $articleContent = "Rédiger ici le contenu du nouvel épisode! Pensez à sauvegarder régulièrement. Enjoy !";
         $number = -1;
@@ -29,16 +35,25 @@ class AdminController extends PageController
         $chapter = $this->_chapterManager->getLastChapter();
         require('view/admin/newArticle.php');
     }
-    public function save($id, $number, $newTitle, $newArticle) {
+    private function save($id, $number, $newTitle, $newArticle) {
+        $this->isAdmin();
         $this->_chapterManager->updateChapter($id, $number, $newTitle, $newArticle);
         $_SESSION['success'] = "Modifications sauvegardées";
     }
-    public function publish($id) {
+    public function publish() {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idChapter');
         $this->_chapterManager->publishChapter($id);
         $_SESSION['success'] = "Chapitre publiée";
-        header('location: index.php?action=admin');
+        header('location: index.php?action=admin_home');
     }
-    public function saveArticle($action, $id, $number, $newTitle, $newArticle) {
+    public function saveArticle() {
+        $this->isAdmin();
+        $action = $this->getCleanArgument('save');
+        $id = $this->getCleanArgument('idChapter');
+        $number = $this->getCleanArgument('numberArticle');
+        $newTitle = $this->getCleanArgument('titleArticle');
+        $newArticle = $this->getCleanArgument('textArticle');
         $this->save($id, $number, $newTitle, $newArticle);
         switch ($action) {
             case 'save':
@@ -47,13 +62,17 @@ class AdminController extends PageController
                 $this->_chapterManager->publishChapter($id);
                 $_SESSION['success'] = "Modifications sauvegardées et article publié";
                 break;
+            case 'unPublish':
+                $this->_chapterManager->lightDeleteChapter($id);
+                $_SESSION['success'] = "Modifications sauvegardées et article dépublié";
+                break;
             case 'chapter':
                 $this->_chapterManager->publishChapter($id);
                 $_SESSION['success'] = "Modifications sauvegardées et article publié, le voici :";
                 header('location: index.php?action=chapter&idChapter='.$id);
                 return;
             case 'admin':
-                header('location: index.php?action=admin');
+                header('location: index.php?action=admin_home');
                 return;
             default:
                 $_SESSION['error'] = "une erreur est survenue, action non reconnue";
@@ -62,32 +81,57 @@ class AdminController extends PageController
         require ('view/admin/newArticle.php');
     }
     public function commentChecking() {
+        $this->isAdmin();
         $commentList = $this->_commentManager->getAllComments();
         require('view/admin/commentChecking.php');
     }
-    public function modifyArticle($id)
+    public function modifyArticle()
     {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idChapter');
         $chapter = $this->_chapterManager->getChapter($id);
         require('view/admin/newArticle.php');
     }
-    public function deleteChapter($id) {
+    public function deleteChapter() {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idChapter');
         $this->_chapterManager->deleteDefinitivelyChapter($id);
         $_SESSION['success'] = "Article définitivement supprimé";
-        header('location: index.php?action=admin');
+        header('location: index.php?action=admin_home');
     }
-    public function unPublish($id) {
+    public function unPublish() {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idChapter');
         $newChapter = $this->_chapterManager->lightDeleteChapter($id);
         $_SESSION['success'] = "Article non publié";
-        header('location: index.php?action=admin');
+        header('location: index.php?action=admin_home');
     }
-    public function deleteComment($id) {
+    public function deleteComment() {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idComment');
         $this->_commentManager->hardDeleteComment($id);
         $_SESSION['success'] = "Commentaire définitivement supprimé.";
-        header('location: index.php?action=admin');
+        header('location: index.php?action=admin_home');
     }
-    public function approveComment($id) {
+    public function approveComment() {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idComment');
         $this->_commentManager->approveComment($id);
         $_SESSION['success'] = "Commentaire approuvée";
-        header('location: index.php?action=admin');
+        header('location: index.php?action=admin_home');
+    }
+    public function deleteCommentList() {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idComment');
+        $this->_commentManager->hardDeleteComment($id);
+        $_SESSION['success'] = "Commentaire définitivement supprimé.";
+        header('location: index.php?action=admin_commentCheck');
+    }
+    public function approveCommentList() {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idComment');
+        $this->_commentManager->approveComment($id);
+        $_SESSION['success'] = "Commentaire approuvée";
+        header('location: index.php?action=admin_commentCheck');
     }
 }

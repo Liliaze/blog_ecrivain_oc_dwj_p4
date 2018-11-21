@@ -24,17 +24,5 @@ class UserManager extends Manager
         $singleUser  = $this->_db->prepare('SELECT users.login FROM users WHERE login=?');
         $singleUser ->execute(array($login));
         return $singleUser ;
-    }/*
-    public function getStatus($login)
-    {
-        $users = $this->_db->prepare('SELECT users.admin FROM users WHERE login=?');
-        $users->execute(array($login));
-        if ($users->rowCount() != 1) {
-            $_SESSION['error'] = "Erreur : identifiant inconnu";
-            return false;
-        }
-        while ($data = $users->fetch()) {
-            return $data['admin'];
-        }
-    }*/
+    }
 }

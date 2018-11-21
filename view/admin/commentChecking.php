@@ -5,6 +5,7 @@
  * Date: 06/11/2018
  * Time: 21:01
  */
+$this->isAdmin();
 ob_start();
 ?>
     <h1>Gestion de l'ensemble des commentaires :</h1>
@@ -28,9 +29,9 @@ ob_start();
                 <div class="buttonModify">
                     <!-- <a class="modify" href="index.php?action=admin&amp;ac=modifyComment&amp;idComment=<?= htmlspecialchars($data['id']) ?>">modifier</a>-->
                     <?php if($data['manualApprove'] == 0) {?>
-                    <a href="index.php?action=admin&amp;ac=manualApprove&amp;idComment=<?= htmlspecialchars($data['id']) ?>">approuver</a>
+                    <a href="index.php?action=admin_manualApproveList&amp;idComment=<?= htmlspecialchars($data['id']) ?>">approuver</a>
                     <?php } ?>
-                    <a href="index.php?action=admin&amp;ac=deleteComment&amp;idComment=<?= htmlspecialchars($data['id']) ?>"
+                    <a href="index.php?action=admin_deleteCommentList&amp;idComment=<?= htmlspecialchars($data['id']) ?>"
                        onclick="return confirm('Etes vous sûre de vouloir supprimer ce commentaire ?')">supprimer</a>
                 </div>
                 </br>
@@ -39,7 +40,7 @@ ob_start();
     }
         $commentList->closeCursor();
 ?>
-    <a href="index.php?action=admin"><button>Retour à la gestion du site</button></a>
+    <a href="index.php?action=admin_home"><button>Retour à la gestion du site</button></a>
     <a href="index.php?action=logout"><button>Déconnexion</button></a>
 
 <?php
