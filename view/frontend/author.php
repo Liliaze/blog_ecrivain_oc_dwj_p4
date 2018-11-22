@@ -40,7 +40,7 @@ ob_start();
             </p>
         <h3>Citation de George Sand :</h3>
         <p>
-            «Pourquoi voyager quand on n'y est pas forcé?» Aujourd'hui, revenant des mêmes latitudes traversées sur un autre point de l'Europe méridionale, je m'adresse la même réponse qu'autrefois à mon retour de Majorque: «C'est qu'il ne s'agit pas tant de voyager que de partir: quel est celui de nous qui n'a pas quelque douleur à distraire ou quelque joug à secouer?».</p>
+            «Pourquoi voyager quand on n'y est pas forcé?» Aujourd'hui, revenant des mêmes latitudes traversées sur un autre point de l'Europe méridionale, je m'adresse la même réponse qu'autrefois à mon retour de Majorque: «C'est qu'il ne s'agit pas tant de voyager que de partir: quel est celui de nous qui n'a pas quelque douleur à distraire ou quelque joug à secouer?».
         </p>
     </div>
 <?php

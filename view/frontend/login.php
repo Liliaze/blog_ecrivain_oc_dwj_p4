@@ -15,11 +15,11 @@ if (!$this->isConnected()) {
             <fieldset id="fieldsetLoginForm">
                 <legend>Identification...</legend>
                 <div>
-                    <label for="login">Login</label><br/>
+                    <label for="loginComment">Login</label><br/>
                     <input type="text" id="loginComment" name="login" required/>
                 </div>
                 <div>
-                    <label for="mdp">Mot de passe</label><br/>
+                    <label for="mdpComment">Mot de passe</label><br/>
                     <input type="password" id="mdpComment" name="mdp" required/>
                 </div>
                 <div class="button">
