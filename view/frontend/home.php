@@ -25,7 +25,6 @@ ob_start();
                     <br/>
                 </p>
                 <p class="readMore">
-                    <br/>
                     <a class="readMore" href="index.php?action=chapter&amp;idChapter=<?=$data['id']?>">
                     Lire plus...</a>
                 </p>

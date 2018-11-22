@@ -17,7 +17,7 @@ ob_start(); ?>
             <div class="extractChapter">
                 <h4>
                     <span class="extractTitle"><?= "Episode ".htmlspecialchars($data['numberChapter']). " : " . $data['title'] ?></span>
-                    </br>
+                    <br/>
                     <span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
                 </h4>
                 <br />
@@ -26,8 +26,8 @@ ob_start(); ?>
                     <br/>
                 </p>
                 <p class="readMore">
-                    <a class="readMore" href="index.php?action=chapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>"
-                    <br/>Lire plus...</a>
+                    <a class="readMore" href="index.php?action=chapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>">
+                    Lire plus...</a>
                  </p>
              </div>
     <?php
