@@ -17,7 +17,7 @@
 <body class="col-lg-12">
     <?php require('view/frontend/alert.php'); ?>
     <?php require('view/frontend/header.php'); ?>
-    <div id="content"class="col-lg-12">
+    <div id="content" class="col-lg-12">
         <?= $alert?>
         <?= $content?>
     </div>
