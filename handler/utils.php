@@ -12,14 +12,15 @@ trait CleanArgument
     public function getCleanArgument($name)
     {
         if (isset($_GET[$name])) {
-            if (!empty(($cleanGet = trim(htmlspecialchars($_GET[$name]))))) {
+            if ((string)($cleanGet = trim(htmlspecialchars($_GET[$name]))) || $cleanGet == "0") {
                 return $cleanGet;
             }
         } else if (isset($_POST[$name])) {
-            if (!empty(($cleanGet = trim(htmlspecialchars($_POST[$name]))))) {
+            if ((string)($cleanGet = trim(htmlspecialchars($_POST[$name]))) || $cleanGet == "0") {
                 return $cleanGet;
             }
         }
+        $_SESSION['info'] = "numéro article:".trim(htmlspecialchars($_POST[$name]))."-publiée";
         $_SESSION['error'] = "Erreur interne : paramètre manquant ou vide";
         return null;
     }
