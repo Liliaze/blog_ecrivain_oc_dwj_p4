@@ -3,7 +3,7 @@
         <div id="contact1" class="col-lg-4 col-md-4 col-xs-12">
             Adresse :<br/>
             Jean Forteroche<br/>
-            Maison des éditions Imagin'R<br/>
+            Maison des éditions Imaginaires<br/>
             30 Allée de la Haute Vue<br/>
             07002 MAJORQUE
         </div>

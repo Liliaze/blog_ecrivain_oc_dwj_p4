@@ -46,7 +46,7 @@ class ChapterController {
     }
     public function displayChapter()
     {
-        $idChapter = $this->getCleanArgument('idChapter');
+        $idChapter = $this->getCleanArgument('idChapter', 1);
         $this->setOneChapter($idChapter);
         $this->setPreviousAndNextIdChapter($idChapter);
         $this->setCommentsChapterList($idChapter);
@@ -98,8 +98,8 @@ class ChapterController {
     }
     public function addComment()
     {
-        $idChapter = $this->getCleanArgument('idChapter');
-        $comment = $this->getCleanArgument('comment');
+        $idChapter = $this->getCleanArgument('idChapter', 1);
+        $comment = $this->getCleanArgument('comment', 1);
         if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             if ($idChapter > 0) {
                 if (!empty(htmlspecialchars($comment))) {
@@ -120,8 +120,8 @@ class ChapterController {
         header('location: index.php?action=chapter&idChapter='.$idChapter);
     }
     public function likeComment() {
-        $idChapter = $this->getCleanArgument('idChapter');
-        $idComment = $this->getCleanArgument('idComment');
+        $idChapter = $this->getCleanArgument('idChapter', 1);
+        $idComment = $this->getCleanArgument('idComment', 1);
         if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             $this->_commentManager->likeComment($idComment);
         }
@@ -131,8 +131,8 @@ class ChapterController {
         header('location: index.php?action=chapter&idChapter='.$idChapter);
     }
     public function dislikeComment() {
-        $idChapter = $this->getCleanArgument('idChapter');
-        $idComment = $this->getCleanArgument('idComment');
+        $idChapter = $this->getCleanArgument('idChapter', 1);
+        $idComment = $this->getCleanArgument('idComment', 1);
         if (isset($_SESSION['id']) && $_SESSION['id'] > 0) {
             $this->_commentManager->dislikeComment($idComment);
         }

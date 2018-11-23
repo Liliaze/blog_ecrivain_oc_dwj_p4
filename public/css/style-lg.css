@@ -76,6 +76,12 @@ footer {
     flex-direction: row;
     justify-content: space-between;
 }
+.linkOtherChapterLeft {
+    align-self: start;
+}
+.linkOtherChapterRight {
+    align-self: end;
+}
 .extractChapter {
     padding: 15px;
     margin: 15px;

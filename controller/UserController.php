@@ -60,9 +60,9 @@ class UserController
     }
 
     public function registerUser() {
-        $mdp = $this->getCleanArgument('mdp');
-        $login = $this->getCleanArgument('login');
-        $email = $this->getCleanArgument('email');
+        $mdp = $this->getCleanArgument('mdp', 1);
+        $login = $this->getCleanArgument('login', 1);
+        $email = $this->getCleanArgument('email', 1);
         if ($mdp && $login && $email) {
             $singleUser = $this->_userManager->singleUser($login);
             if ($singleUser->rowCount() == 0) {

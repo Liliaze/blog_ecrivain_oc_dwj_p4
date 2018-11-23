@@ -9,20 +9,24 @@ namespace Handler\utils;
 
 trait CleanArgument
 {
-    public function getCleanArgument($name)
+    public function getCleanArgument($name, $optionHTML)
     {
+        $cleanGet = null;
         if (isset($_GET[$name])) {
-            if ((string)($cleanGet = trim(htmlspecialchars($_GET[$name]))) || $cleanGet == "0") {
-                return $cleanGet;
-            }
+            if ($optionHTML)
+                $cleanGet = trim(htmlspecialchars($_GET[$name]));
+            else
+                $cleanGet = trim($_GET[$name]);
+
         } else if (isset($_POST[$name])) {
-            if ((string)($cleanGet = trim(htmlspecialchars($_POST[$name]))) || $cleanGet == "0") {
-                return $cleanGet;
-            }
+            if ($optionHTML)
+                $cleanGet = trim(htmlspecialchars($_POST[$name]));
+            else
+                $cleanGet = trim($_POST[$name]);
         }
-        $_SESSION['info'] = "numéro article:".trim(htmlspecialchars($_POST[$name]))."-publiée";
-        $_SESSION['error'] = "Erreur interne : paramètre manquant ou vide";
-        return null;
+        if (strlen($cleanGet) < 0)
+            $_SESSION['error'] = "Erreur interne : paramètre manquant ou vide";
+        return $cleanGet;
     }
 }
 

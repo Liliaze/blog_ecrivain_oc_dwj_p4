@@ -17,15 +17,33 @@ ob_start(); ?>
         </h2>
 
         <div class="linkOtherChapter">
+            <div class="linkOtherChapterLeft">
             <?php if ($this->_previousIdChapter != null) { ?>
                 <a href="index.php?action=chapter&amp;idChapter=<?= $this->_previousIdChapter ?>"><button><i class="fas fa-angle-double-left"></i>&nbspCHAPITRE&nbspPRECEDENT</button></a>
             <?php } ?>
+            </div>
+            <div class="linkOtherChapterRight">
             <?php if ($this->_nextIdChapter != null) { ?>
                 <a href="index.php?action=chapter&amp;idChapter=<?= $this->_nextIdChapter?>"><button><i class="fas fa-angle-double-right"></i>&nbspCHAPITRE&nbspSUIVANT</button></a>
             <?php } ?>
+            </div>
         </div>
 
-        <p><?= nl2br($data['content']) ?> <br/></p>
+        <p><?= nl2br(strip_tags($data['content'], '<p><a>')) ?> <br/></p>
+
+        <div class="linkOtherChapter">
+            <div class="linkOtherChapterLeft">
+                <?php if ($this->_previousIdChapter != null) { ?>
+                    <a href="index.php?action=chapter&amp;idChapter=<?= $this->_previousIdChapter ?>"><button><i class="fas fa-angle-double-left"></i>&nbspCHAPITRE&nbspPRECEDENT</button></a>
+                <?php } ?>
+            </div>
+            <div class="linkOtherChapterRight">
+                <?php if ($this->_nextIdChapter != null) { ?>
+                    <a href="index.php?action=chapter&amp;idChapter=<?= $this->_nextIdChapter?>"><button><i class="fas fa-angle-double-right"></i>&nbspCHAPITRE&nbspSUIVANT</button></a>
+                <?php } ?>
+            </div>
+        </div>
+
     </div>
         <?php if (isset($_SESSION['login']) && $_SESSION['login'] != '') { ?>
         <div class="postComment col-lg-12">
@@ -42,6 +60,7 @@ ob_start(); ?>
                 </fieldset>
             </form>
         </div>
+
         <?php } else { ?>
             <div class="postComment col-lg-12">
                 <h3>Connectez-vous pour poster un commentaire :</h3>
@@ -81,12 +100,16 @@ ob_start(); ?>
                     </div>
             <?php }?>
             <div class="linkOtherChapter">
-                <?php if ($this->_previousIdChapter != null) { ?>
-                    <a href="index.php?action=chapter&amp;idChapter=<?= $this->_previousIdChapter ?>"><button><i class="fas fa-angle-double-left"></i>&nbspCHAPITRE&nbspPRECEDENT</button></a>
-                <?php } ?>
-                <?php if ($this->_nextIdChapter != null) { ?>
-                    <a href="index.php?action=chapter&amp;idChapter=<?= $this->_nextIdChapter?>"><button><i class="fas fa-angle-double-right"></i>&nbspCHAPITRE&nbspSUIVANT</button></a>
-                <?php } ?>
+                <div class="linkOtherChapterLeft">
+                    <?php if ($this->_previousIdChapter != null) { ?>
+                        <a href="index.php?action=chapter&amp;idChapter=<?= $this->_previousIdChapter ?>"><button><i class="fas fa-angle-double-left"></i>&nbspCHAPITRE&nbspPRECEDENT</button></a>
+                    <?php } ?>
+                </div>
+                <div class="linkOtherChapterRight">
+                    <?php if ($this->_nextIdChapter != null) { ?>
+                        <a href="index.php?action=chapter&amp;idChapter=<?= $this->_nextIdChapter?>"><button><i class="fas fa-angle-double-right"></i>&nbspCHAPITRE&nbspSUIVANT</button></a>
+                    <?php } ?>
+                </div>
             </div>
         <?php  } ?>
     </div>
