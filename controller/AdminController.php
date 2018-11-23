@@ -30,7 +30,12 @@ class AdminController extends ChapterController
         $this->isAdmin();
         $title = "Nouvel article";
         $articleContent = "Rédiger ici le contenu du nouvel épisode! Pensez à sauvegarder régulièrement. Enjoy !";
+        $numberPDO = $this->_chapterManager->getMaxNumberChapter();
         $number = -1;
+        while ($data = $numberPDO->fetch()) {
+            $number = intval($data['numberChapter']) + 1;
+        }
+        $numberPDO->closeCursor();
         $this->_chapterManager->newChapter($title, $number, $articleContent);
         $chapter = $this->_chapterManager->getLastChapter();
         require('view/admin/newArticle.php');
