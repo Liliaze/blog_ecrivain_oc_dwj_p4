@@ -49,7 +49,6 @@ class ChapterManager extends Manager
     }
     public function newChapter($title, $number, $content)
     {
-        ////TO-DO : corriger requete !!!!
         $newChapter = $this->_db->prepare('INSERT INTO chapter (title, numberChapter, content, creationDate, updateDate) VALUES(?, ?, ?, NOW(), NOW())');
         $newChapter->execute(array($title, $number, $content));
     }
@@ -68,7 +67,6 @@ class ChapterManager extends Manager
     {
         $newChapter = $this->_db->prepare('UPDATE chapter SET published=0, deleted=0, updateDate=NOW() WHERE id=?');
         $updateLines = $newChapter->execute(array($id));
-        echo "retour lightDelete : ".$updateLines;
         return $updateLines;
     }
     public function deleteDefinitivelyChapter($id)

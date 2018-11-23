@@ -17,17 +17,18 @@ class AdminController extends ChapterController
         header('location: index.php?action=home');
         exit();
     }
-    private function updateCommentSignaledList() {
-        $this->_commentsSignaledList = $this->_commentManager->getSignaledList();
-    }
     public function displayAdminPage() {
         $this->isAdmin();
         $this->updateChapterList();
         $this->updateCommentSignaledList();
         require('view/admin/admin.php');
     }
+    private function updateCommentSignaledList() {
+        $this->_commentsSignaledList = $this->_commentManager->getSignaledList();
+    }
     public function createNewArticle() {
         $this->isAdmin();
+        $id = -1;
         $title = "Nouvel article";
         $articleContent = "Rédiger ici le contenu du nouvel épisode! Pensez à sauvegarder régulièrement. Enjoy !";
         $numberPDO = $this->_chapterManager->getMaxNumberChapter();
@@ -36,22 +37,9 @@ class AdminController extends ChapterController
             $number = intval($data['numberChapter']) + 1;
         }
         $numberPDO->closeCursor();
-        $this->_chapterManager->newChapter($title, $number, $articleContent);
-        $chapter = $this->_chapterManager->getLastChapter();
         require('view/admin/newArticle.php');
     }
-    private function save($id, $number, $newTitle, $newArticle) {
-        $this->isAdmin();
-        $this->_chapterManager->updateChapter($id, $number, $newTitle, $newArticle);
-        $_SESSION['success'] = "Modifications sauvegardées";
-    }
-    public function publish() {
-        $this->isAdmin();
-        $id = $this->getCleanArgument('idChapter', 1);
-        $this->_chapterManager->publishChapter($id);
-        $_SESSION['success'] = "Chapitre publiée";
-        header('location: index.php?action=admin_home');
-    }
+
     public function saveArticle() {
         $this->isAdmin();
         $action = $this->getCleanArgument('save', 1);
@@ -61,21 +49,21 @@ class AdminController extends ChapterController
         $newArticle = $this->getCleanArgument('textArticle', 0);
         switch ($action) {
             case 'save':
-                $this->save($id, $number, $newTitle, $newArticle);
+                $chapter = $this->save($id, $number, $newTitle, $newArticle);
                 break;
             case 'publish':
-                $this->save($id, $number, $newTitle, $newArticle);
                 $this->_chapterManager->publishChapter($id);
+                $chapter = $this->save($id, $number, $newTitle, $newArticle);
                 $_SESSION['success'] = "Modifications sauvegardées et article publié";
                 break;
             case 'unPublish':
-                $this->save($id, $number, $newTitle, $newArticle);
                 $this->_chapterManager->lightDeleteChapter($id);
+                $chapter = $this->save($id, $number, $newTitle, $newArticle);
                 $_SESSION['success'] = "Modifications sauvegardées et article dépublié";
                 break;
             case 'chapter':
-                $this->save($id, $number, $newTitle, $newArticle);
                 $this->_chapterManager->publishChapter($id);
+                $chapter = $this->save($id, $number, $newTitle, $newArticle);
                 $_SESSION['success'] = "Modifications sauvegardées et article publié, le voici :";
                 header('location: index.php?action=chapter&idChapter='.$id);
                 return;
@@ -85,8 +73,27 @@ class AdminController extends ChapterController
             default:
                 $_SESSION['error'] = "une erreur est survenue, action non reconnue";
         }
-        $chapter = $this->_chapterManager->getChapter($id);
-        require ('view/admin/newArticle.php');
+        require ('view/admin/modifyArticle.php');
+    }
+    private function save($id, $number, $newTitle, $newArticle) {
+        $this->isAdmin();
+        if ($id == -1) { //alors premier enregistrement
+            $this->_chapterManager->newChapter($newTitle, $number, $newArticle);
+            $_SESSION['success'] = "Nouvel article créé et sauvegardé";
+            return ($this->_chapterManager->getLastChapter());
+        }
+        else {//modification
+            $this->_chapterManager->updateChapter($id, $number, $newTitle, $newArticle);
+            $_SESSION['success'] = "Modifications sauvegardées";
+            return ($this->_chapterManager->getChapter($id));
+        }
+    }
+    public function publish() {
+        $this->isAdmin();
+        $id = $this->getCleanArgument('idChapter', 1);
+        $this->_chapterManager->publishChapter($id);
+        $_SESSION['success'] = "Chapitre publiée";
+        header('location: index.php?action=admin_home');
     }
     public function commentChecking() {
         $this->isAdmin();
@@ -98,7 +105,7 @@ class AdminController extends ChapterController
         $this->isAdmin();
         $id = $this->getCleanArgument('idChapter', 1);
         $chapter = $this->_chapterManager->getChapter($id);
-        require('view/admin/newArticle.php');
+        require('view/admin/modifyArticle.php');
     }
     public function deleteChapter() {
         $this->isAdmin();
