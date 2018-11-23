@@ -92,9 +92,9 @@ ob_start(); ?>
                             <?php if ($data['signaled'] == 0) {?>
                                 <li class="signaledButton rightLi"><a href="index.php?action=signaledComment&amp;idChapter=<?= $data['idChapter'] ?>&amp;idComment=<?= $data['id'] ?>"><i class="fas fa-door-closed">&nbspsignaler</i></a></li>
                             <?php } else if ($data['signaled'] == 1 && $data['manualApprove'] == 0) {?>
-                            <li class="signaled rightLi"><i class="fas fa-door-closed">&nbspCommentaire signalé, en attente de modération</i></li>
+                            <li class="signaled rightLi"><i class="fas fa-question">&nbsp;Signalé</i></li>
                             <?php }  else if ($data['signaled'] == 1 && $data['manualApprove'] == 1) {?>
-                            <li class="approve rightLi"><i class="fas fa-check">&nbspCommentaire approuvé suite à signalement</i></li>
+                            <li class="approve rightLi"><i class="fas fa-check">&nbsp;Approuvé</i></li>
                         <?php } ?>
                         </ul>
                     </div>
