@@ -22,14 +22,6 @@ class UserController
         require('view/frontend/login.php');
     }
 
-    public function logout() {
-        $_SESSION['id'] = '';
-        $_SESSION['admin'] = '';
-        $_SESSION['login'] = '';
-        $_SESSION['success'] = 'Déconnexion réussie';
-        header( 'location: index.php?action=login');
-    }
-
     public function checkClassicUser($login, $mdp) {
         $mdp = htmlspecialchars($mdp);
         $login = htmlspecialchars($login);
@@ -57,6 +49,14 @@ class UserController
             $_SESSION['error'] = 'erreur champs login ou mdp vide';
             $this->logout();
         }
+    }
+
+    public function logout() {
+        $_SESSION['id'] = '';
+        $_SESSION['admin'] = '';
+        $_SESSION['login'] = '';
+        $_SESSION['success'] = 'Déconnexion réussie';
+        header( 'location: index.php?action=login');
     }
 
     public function registerUser() {

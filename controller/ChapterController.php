@@ -59,6 +59,19 @@ class ChapterController {
         $this->_commentsChapterList = $this->_commentManager->getComments($idChapter);
     }
     private function setPreviousAndNextIdChapter($idChapter) {
+        $pdoID = $this->_chapterManager->getPreviousPublishId($idChapter);
+        while ($dataID = $pdoID->fetch()) {
+            $this->_previousIdChapter = $dataID['id'];
+            break;
+        }
+        $pdoID->closeCursor();
+        $pdoID = $this->_chapterManager->getNextPublishId($idChapter);
+        while ($dataID = $pdoID->fetch()) {
+            $this->_nextIdChapter = $dataID['id'];
+            break;
+        }
+        $pdoID->closeCursor();
+        /*
         $list = $this->_chapterManager->getChapterList();
         $currentChapter = $this->_chapterManager->getChapter($idChapter);
         while ($data = $currentChapter->fetch()) {
@@ -91,6 +104,7 @@ class ChapterController {
             break;
         }
         $currentChapter->closeCursor();
+        */
     }
     public function displayChapterList()
     {
@@ -126,7 +140,8 @@ class ChapterController {
             $this->_commentManager->likeComment($idComment);
         }
         else {
-             $_SESSION['warning'] = 'Merci de vous identifier pour pouvoir aimer un commentaire';
+            $error = 'Merci de vous identifier pour pouvoir aimer un commentaire';
+            $_SESSION['error'] = $error ;
         }
         header('location: index.php?action=chapter&idChapter='.$idChapter);
     }
@@ -137,7 +152,8 @@ class ChapterController {
             $this->_commentManager->dislikeComment($idComment);
         }
         else {
-            $_SESSION['warning'] = 'Merci de vous identifier pour indiquer que vous n\'aimez pas un commentaire';
+            $error = 'Merci de vous identifier pour indiquer que vous n\'aimez pas un commentaire';
+            $_SESSION['error'] = $error ;
         }
         header('location: index.php?action=chapter&idChapter='.$idChapter);
     }

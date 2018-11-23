@@ -27,6 +27,34 @@ class ChapterManager extends Manager
         $id->execute(array($numberChapter));
         return $id;
     }
+    public function getNumberChapterById($idChapter)
+    {
+        $numberChapter = $this->_db->prepare('SELECT numberChapter FROM chapter WHERE id=?');
+        $numberChapter->execute(array($idChapter));
+        return $numberChapter;
+    }
+    public function getPreviousPublishId($idChapter){
+        $nbPDO = $this->getNumberChapterById($idChapter);
+        $numberChapter = 0;
+        while ($data = $nbPDO->fetch()) {
+            $numberChapter = $data['numberChapter'];
+        }
+        $nbPDO->closeCursor();
+        $id = $this->_db->prepare('SELECT id FROM chapter WHERE numberChapter < ? ORDER BY numberChapter DESC LIMIT 1');
+        $id->execute(array($numberChapter));
+        return $id;
+    }
+    public function getNextPublishId($idChapter){
+        $nbPDO = $this->getNumberChapterById($idChapter);
+        $numberChapter = 0;
+        while ($data = $nbPDO->fetch()) {
+            $numberChapter = $data['numberChapter'];
+        }
+        $nbPDO->closeCursor();
+        $id = $this->_db->prepare('SELECT id FROM chapter WHERE numberChapter > ? ORDER BY numberChapter ASC LIMIT 1');
+        $id->execute(array($numberChapter));
+        return $id;
+    }
     public function getFirstPublishChapterId()
     {
         $firstId = $this->_db->query('SELECT id FROM chapter WHERE published=1 ORDER BY numberChapter ASC LIMIT 1');
