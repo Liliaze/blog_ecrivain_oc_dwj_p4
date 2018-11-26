@@ -29,7 +29,7 @@ ob_start(); ?>
             </div>
         </div>
 
-        <p><?= nl2br($data['content']) ?> <br/></p>
+        <p class="contentChapterP"><?= nl2br($data['content']) ?><br/></p>
 
         <div class="linkOtherChapter">
             <div class="linkOtherChapterLeft">

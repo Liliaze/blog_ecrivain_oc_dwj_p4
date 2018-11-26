@@ -21,7 +21,7 @@ ob_start(); ?>
                     <span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
                 </h4>
                 <br />
-                <p>
+                <p class="contentChapterP">
                     <?= substr(nl2br($data['content']), 0, 400);  ?>
                     <br/>
                 </p>

@@ -85,6 +85,9 @@ footer {
     margin: 15px;
     border: dashed dodgerblue 2px;
 }
+.extractChapter p, .chapter p {
+    font-size: 17px;
+}
 .extractTitle {
     color: #2b542c;
 }

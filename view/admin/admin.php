@@ -58,7 +58,7 @@ ob_start();
         <div class="extractChapter">
             <div>
                 <span class="adminTitleChapter"><?= "Episode ".htmlspecialchars($data['numberChapter']). " : " . $data['title'] ?></span>
-                <span class="adminExtractChapter"></br><?=substr(nl2br($data['content']), 0, 50)." ...";  ?></span>
+                <span class="adminExtractChapter contentChapterP""></br><?=substr(nl2br($data['content']), 0, 50)." ...";  ?></span>
                 <span class="adminDateChapter"></br>créé le <?= $data['creation_date_fr']?>, mis à jour le <?= $data['update_date_fr'] ?></span>
             </div>
             <div class="buttonModify">
