@@ -17,10 +17,8 @@ ob_start(); ?>
             <div class="extractChapter">
                 <h4>
                     <div class="extractTitle"><?= "Episode ".htmlspecialchars($data['numberChapter']). " : " . $data['title'] ?></div>
-                    <br/>
                     <div class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></div>
                 </h4>
-                <br />
                 <p class="contentChapterP">
                     <?= substr(nl2br($data['content']), 0, 400);  ?>
                     <br/>
