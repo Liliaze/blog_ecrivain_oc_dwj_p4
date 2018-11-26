@@ -285,6 +285,7 @@ textarea {
 }
 #newArticle {
     height: 50vh;
+    text-align: center;
 }
 .buttonModify{
     display: flex;

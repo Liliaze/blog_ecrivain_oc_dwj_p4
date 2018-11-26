@@ -16,9 +16,9 @@ ob_start(); ?>
         if ($data['published'] == 1) { ?>
             <div class="extractChapter">
                 <h4>
-                    <span class="extractTitle"><?= "Episode ".htmlspecialchars($data['numberChapter']). " : " . $data['title'] ?></span>
+                    <div class="extractTitle"><?= "Episode ".htmlspecialchars($data['numberChapter']). " : " . $data['title'] ?></div>
                     <br/>
-                    <span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
+                    <div class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></div>
                 </h4>
                 <br />
                 <p class="contentChapterP">

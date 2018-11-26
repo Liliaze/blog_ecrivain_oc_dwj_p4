@@ -57,9 +57,9 @@ ob_start();
     <?php while ($data= $this->_chapterList->fetch()) {?>
         <div class="extractChapter">
             <div>
-                <span class="adminTitleChapter"><?= "Episode ".htmlspecialchars($data['numberChapter']). " : " . $data['title'] ?></span>
-                <span class="adminExtractChapter contentChapterP""></br><?=substr(nl2br($data['content']), 0, 50)." ...";  ?></span>
-                <span class="adminDateChapter"></br>créé le <?= $data['creation_date_fr']?>, mis à jour le <?= $data['update_date_fr'] ?></span>
+                <p class="adminTitleChapter"><?= "Episode ".htmlspecialchars($data['numberChapter']). " : " . $data['title'] ?></p>
+                <p class="adminExtractChapter"><?= substr(nl2br($data['content']), 0, 250);  ?> ...</p>
+                <p class="adminDateChapter">créé le <?= $data['creation_date_fr']?>, mis à jour le <?= $data['update_date_fr'] ?></p>
             </div>
             <div class="buttonModify">
                 <a class="modify" href="index.php?action=admin_modifyChapter&amp;idChapter=<?=htmlspecialchars($data['id'])?>">modifier</a>
@@ -70,7 +70,7 @@ ob_start();
                 <?php }?>
                 <a href="index.php?action=admin_deleteChapter&amp;idChapter=<?=htmlspecialchars($data['id']) ?>" onclick="return confirm('Etes vous sûre de vouloir supprimer ce chapitre ?')">supprimer</a>
             </div>
-            </br>
+            <br/>
         </div>
     <?php }
     $this->_chapterList->closeCursor();?>

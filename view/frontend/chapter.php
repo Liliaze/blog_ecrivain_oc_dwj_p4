@@ -12,8 +12,8 @@ ob_start(); ?>
     <div class="chapter col-lg-12">
     <?php while ($data= $this->_oneChapter->fetch()) { ?>
         <h2>Chapitre : <?= $data['numberChapter'] ?>
-            </br><span class="extractTitle"><?= $data['title'] ?></span>
-            </br><span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
+            </br><div class="extractTitle"><?= $data['title'] ?></div>
+            </br><div class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></div>
         </h2>
 
         <div class="linkOtherChapter">
