@@ -33,9 +33,10 @@ class CommentManager extends Manager
     }
     public function addComment($chapterId, $idLogin, $comment)
     {
-        date_default_timezone_set('Europe/Paris');
-        $comments = $this->_db->prepare('INSERT INTO comments(idChapter, idUsers, comment, creationDate, manualApprove, nbLike, likerList, nbDislike, dislikerList, signaled, banished) VALUES(?, ?, ?, NOW(), 0, 0, 0, 0, 0, 0, 0)');
-        $affectedLines = $comments->execute(array($chapterId, $idLogin, $comment));
+        date_default_timezone_set( 'Europe/Paris' );
+        $datetime = date("Y-m-d H:i:s");
+        $comments = $this->_db->prepare('INSERT INTO comments(idChapter, idUsers, comment, creationDate, manualApprove, nbLike, likerList, nbDislike, dislikerList, signaled, banished) VALUES(?, ?, ?, ?, 0, 0, 0, 0, 0, 0, 0)');
+        $affectedLines = $comments->execute(array($chapterId, $idLogin, $comment, $datetime));
         return $affectedLines;
     }
     public function signalComment($id)
