@@ -40,7 +40,7 @@ class ChapterManager extends Manager
             $numberChapter = $data['numberChapter'];
         }
         $nbPDO->closeCursor();
-        $id = $this->_db->prepare('SELECT id FROM chapter WHERE numberChapter < ? ORDER BY numberChapter DESC LIMIT 1');
+        $id = $this->_db->prepare('SELECT id FROM chapter WHERE published=1 AND numberChapter < ? ORDER BY numberChapter DESC LIMIT 1');
         $id->execute(array($numberChapter));
         return $id;
     }
@@ -51,7 +51,7 @@ class ChapterManager extends Manager
             $numberChapter = $data['numberChapter'];
         }
         $nbPDO->closeCursor();
-        $id = $this->_db->prepare('SELECT id FROM chapter WHERE numberChapter > ? ORDER BY numberChapter ASC LIMIT 1');
+        $id = $this->_db->prepare('SELECT id FROM chapter WHERE published=1 AND numberChapter > ? ORDER BY numberChapter ASC LIMIT 1');
         $id->execute(array($numberChapter));
         return $id;
     }
