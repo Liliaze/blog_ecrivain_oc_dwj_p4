@@ -1,0 +1,23 @@
+header {
+    width: 100%;
+    position: fixed;
+    top:0;
+    height: 255px;
+    background-color: darkslategray;
+    z-index: 10;
+}
+#content {
+    margin-top: 300px;
+}
+#homeTitle {
+    font-size: 20px;
+}
+h1 {
+    font-size: 18px;
+}
+h2 {
+    font-size: 16px;
+}
+h3 {
+    font-size: 14px;
+}
