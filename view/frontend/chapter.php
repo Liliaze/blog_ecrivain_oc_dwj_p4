@@ -11,8 +11,8 @@ ob_start(); ?>
     <h1>BILLET SIMPLE POUR L'ALASKA</h1>
     <div class="chapter col-lg-12">
     <?php while ($data= $this->_oneChapter->fetch()) { ?>
-        <h2>Chapitre : <?= htmlspecialchars($data['numberChapter']) ?>
-            </br><span class="extractTitle"><?= htmlspecialchars($data['title']) ?></span>
+        <h2>Chapitre : <?= $data['numberChapter'] ?>
+            </br><span class="extractTitle"><?= $data['title'] ?></span>
             </br><span class="extractSubTitle">publié le <?= $data['creation_date_fr'] ?></span>
         </h2>
 
@@ -29,7 +29,7 @@ ob_start(); ?>
             </div>
         </div>
 
-        <p><?= nl2br(strip_tags($data['content'], '<p><a>')) ?> <br/></p>
+        <p><?= nl2br($data['content']) ?> <br/></p>
 
         <div class="linkOtherChapter">
             <div class="linkOtherChapterLeft">
